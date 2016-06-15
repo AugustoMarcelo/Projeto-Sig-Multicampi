@@ -75,7 +75,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		var store = thisComponent.getComponent('grid_pontos').getStore();
 		var bateuPonto = false;
 		var horarios = [];
-		var hora;
+		var hora; //VARIÁVEL CRIADA PARA SABER SE JÁ SE PASSOU 1 HORA ENTRE A SAÍDA DO 1º EXPEDIENTE E A ENTRADA DO 2º
 		Ext.Ajax.request({
 			method: 'POST',
 			url: 'php/dataHoje.php',
@@ -84,15 +84,16 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				var hoje = result.dataHoje;
 				store.on('load', function (st) {
 					store.each(function (rec) {
-						var dataPonto = Ext.Date.format(rec.get('dataPonto'), 'd/m/Y');
+						var dataPonto = Ext.Date.format(rec.get('dataPonto'), 'd/m/Y');						
+						//console.log(Ext.Date.format(rec.get('dataPonto'), 'd') - 1);
 						if (hoje == dataPonto) { //VERIFICA SE O USUÁRIO DEU REGISTROU O PRIMEIRO PONTO
 							bateuPonto = true;							
 							horarios[0] = rec.get('entrada01');
 							horarios[1] = rec.get('saida01');
 							horarios[2] = rec.get('entrada02');
 							horarios[3] = rec.get('saida02');
-							//hora = horarios[1] != null ? new Date(horarios[1]) : null;
-							//hora != null? hora.setHours(hora.getHours() + 1) : null;																				
+							hora = horarios[1] != null ? new Date(horarios[1]) : null; //SE O USUÁRIO AINDA JÁ TIVER SAÍDO NO 1º EXPEDIENTE, RECUPERAR O HORÁRIO
+							hora != null? hora.setHours(hora.getHours() + 1) : null; //ACRESCENTAR UMA HORA AO HORÁRIO DE SAÍDA DO 1º EXPEDIENTE																				
 						}
 					});
 					var btnEntrada01 = Ext.ComponentQuery.query('#entrada01')[0];
@@ -114,9 +115,9 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 							if (btnSaida01.isDisabled()) { //VERIFICANDO SE O BOTÃO ESTÁ DESABILITADO
 								btnSaida01.setDisabled(false); //HABILITANDO-O
 							}
-						} else if ((horarios[2] == null) && (result.horaAgora >= Ext.Date.format(hora, 'H:i:s'))) { //SE O USUÁRIO NÃO BATEU O PONTO DE ENTRADA DO SEGUNDO EXPEDIENTE E JA SE PASSOU MAIS DE UMA HORA
-							if (btnEntrada02.isDisabled()) {
-								btnEntrada02.setDisabled(false);
+						} else if ((horarios[2] == null) && (result.horaAgora >= Ext.Date.format(hora, 'H:i:s'))) { //SE O USUÁRIO NÃO BATEU O PONTO AINDA E O INTERVALO DE 1 HORA AINDA NÃO SE PASSOU 
+							if (btnEntrada02.isDisabled()) { //VERIFICA SE O BOTÃO ESTÁ DESABILITADO
+								btnEntrada02.setDisabled(false); //HABILITA O BOTÃO
 							}							
 						} else if ((horarios[3] == null) && (horarios[2] != null))  {							
 							if (btnSaida02.isDisabled()) {
