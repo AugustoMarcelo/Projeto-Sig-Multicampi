@@ -72,7 +72,6 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	},
 
 	onRenderContainer: function (thisComponent, e0pts) {
-		//var label = thisComponent.getComponent('container_1.1').getComponent('container_1.1.1').getComponent('containerHorasTrabalhadas').getComponent('htmlTableHoraSemanal');
 		var store = thisComponent.getComponent('grid_pontos').getStore();
 		var bateuPonto = false;
 		var horarios = [];
