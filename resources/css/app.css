@@ -1,0 +1,437 @@
+/* #titulo {
+    color: #606060;
+    text-align: center;
+    text-shadow: 2px 2px 1px black;
+} */
+
+.x-strict {
+    background-image: url('../images/background.jpg') !important;    
+    /*background-size: 1740px;*/
+    background-attachment: fixed;
+    background-size: 100% 100%;    
+} 
+
+.x-mask.splashscreen {
+    background-color: white;
+    opacity: 1;    
+}
+
+.x-mask-msg.splashscreen,
+.x-mask-msg.splashscreen div {    
+    font-size: 16px;
+    font-weight: bold;
+    padding: 30px 5px 5px 5px;
+    border: none;
+    background-color: transparent;
+    background-position: top center;
+
+}
+
+.x-message-box .x-window-body .x-box-inner {
+    min-height: 110px !important;
+}
+
+.x-splash-icon {
+    background-image: url('../images/ufrn_logo.png') !important;    
+    margin-top: -30px; 
+    margin-bottom: 15px;
+    margin-left: -150px;    
+    height: 150px;
+    width: 584px; 
+}
+
+.msg .x-box-mc {
+    font-size:14px;
+}
+
+.x-mask-msg-inner .x-mask-msg-text {
+    margin-right: 250px;
+}
+
+#msg-div {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:300px;
+    z-index:20000;
+}
+
+#msg-div .msg {
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    background: #d4eeca;
+    border: 2px solid #ccc;
+    margin-top: 2px;
+    padding: 10px 15px;
+    color: #555;
+}
+
+#msg-div .msg h3 {
+    margin: 0 0 8px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#msg-div .msg p {
+    margin: 0;
+}
+
+.rodape {
+    text-align: center;
+    color: #000000;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.key {
+    background-image: url('../images/key.png') !important;
+}
+
+.key_go {
+    background-image: url('../images/key_go.png') !important;
+}
+
+.cancel {
+    /* background-image: url('../images/cancel.png') !important; */
+    background-image: url('../images/cross112.png') !important;
+}
+
+.capslock {
+    background:url('../images/bullet_error.png') no-repeat center left;
+    padding:2px;
+    padding-left:20px;
+    font-weight:700;
+}
+
+#titleHeader {    
+    font-weight:bold;
+    font-family:'Lucida Grande', Arial, Sans;
+    font-size: 20px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,.4);
+}
+
+.logout {
+    background-image: url('../images/logout.png') !important;
+}
+
+.pt_BR {
+    background-image: url('../images/pt_BR.png') !important;
+}
+
+.en {
+    background-image: url('../images/en.png') !important;
+}
+
+.es {
+    background-image: url('../images/es.png') !important;
+}
+
+.sitemap {
+    /* background-image: url('../images/sitemap.png') !important; */
+    background-image: url('../images/menu-three-outlined-bars.png') !important;
+}
+
+.home {
+    background-image: url('../images/home.png') !important;
+}
+
+.menu_estoque {
+    background-image: url('../images/menu_estoque.png') !important;
+}
+
+.menu_estoque_minimo {
+    background-image: url('../images/menu_estoque_min.png') !important;
+}
+
+.estoque {
+    background-image: url('../images/estoque.png') !important;
+}
+
+.menu_users {
+    background-image: url('../images/folder_user.png') !important;
+}
+
+.user {
+    background-image: url('../images/user.png') !important;
+}
+
+.add {
+  /* background-image:url('../images/add.png') !important; */
+  background-image:url('../images/add182.png') !important;
+}
+
+.edit {
+  /* background-image:url('../images/pencil.png') !important; */
+  background-image:url('../images/pencil43.png') !important;
+}
+
+.delete {
+  /* background-image:url('../images/delete.png') !important; */
+  background-image:url('../images/rubbish7.png') !important;
+}
+
+.save {
+    /* background-image: url('../images/save.gif') !important; */
+    /* background-image: url('../images/save.png') !important; */
+    background-image: url('../images/diskette18.png') !important;
+}
+
+.image {
+    background-image: url('../images/image.png') !important;
+}
+
+.menu_log {
+    background-image: url('../images/registro.png') !important;
+}
+
+.menu_log_user {
+    background-image: url('../images/logUser.png') !important;
+}
+
+.apagar {
+    /* background-image: url('../images/lixo.gif') !important; */
+    background-image: url('../images/waste-bin.png') !important;
+}
+
+.group_edit {
+    background-image: url('../images/group_edit.png') !important;
+}
+
+.busca {
+    background-image: url('../images/busca.gif') !important;
+}
+
+.tipoMaterial {
+    /* background-image: url('../images/tipoMaterial.gif') !important; */
+    background-image: url('../images/pen38.png') !important;
+}
+
+.pdf {
+    /* background-image: url('../images/pdf.gif') !important; */
+    background-image: url('../images/pdf17.png') !important;
+}
+
+.userNameText {
+    font-size: 11px;
+    text-shadow: 2px 2px 1px rgba(0,0,0,.4);
+}
+
+.infoDoProduto {
+    font-size: 0.8em;
+    text-shadow: 2px 2px 1px rgba(0,0,0,.4);
+}
+
+.infoText {
+    font-style: italic;
+}
+
+.controleEstoque {
+    background-image: url('../images/controleEstoque.gif') !important;
+}
+
+.saida {
+    background-image: url('../images/saida.png') !important;
+}
+
+.entrada {
+    background-image: url('../images/entrada.png') !important;
+}
+
+.vermelho .x-grid-cell {
+    background-color: #f55353;
+    color: #FFF;
+}
+
+.preto .x-grid-cell {
+    color: #000000;
+}
+
+.inativo .x-grid-cell {
+    background-color: #f55353;
+    color: #FFF;
+}
+
+/*CSS DOS ALERTS RELACIONADO A SAIDA DE PRODUTO DO ESTOQUE*/
+.alert-box .alert-error {
+    background: none repeat scroll 0 0 #FBB198;
+    border: 1px solid #DC4E3D;
+}
+
+.alert-box h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0px;
+    width: 450px;
+}
+
+.alert-box table {
+    margin-top: 1px;
+    padding: 2px 3px;
+    border-radius: 4px;
+    width: 500px;
+    -moz-border-radius: 4px;
+}
+
+.alert-box {
+    left: 32%;
+    position: absolute;
+    top: 2px;
+    z-index: 20000;
+}
+
+.alert-box p {
+    font-size: 13px;
+    margin: 0;
+}
+/*CSS DOS ALERTS RELACIONADO A SAIDA DE PRODUTO DO ESTOQUE*/
+
+/* CSS para mudar a cor de fundo quando uma chave for retirada*/
+.retirado {
+    background-color: rgba(200,0,0, .8);
+}
+
+.devolvido {
+    background-color: rgba(0,100,0, .8);   
+}
+
+.setaVermelha {
+    background-image: url('../images/seta_vermelha.png') !important;
+}
+
+.setaVerde {
+    background-image: url('../images/seta_verde.png') !important;
+}
+
+.detalhes {
+    background-image: url('../images/icone_informacao.gif') !important;
+}
+
+/*Mudar a forma da borda dos fieldsets*/
+/* .x-fieldset {
+    border-radius: 10px;
+} */
+
+.chavesTitulo {    
+    font-size: 20px;
+}
+
+.livroAberto {
+    background-image: url('../images/livroAberto.png') !important;
+}
+
+.livroFechado {
+    background-image: url('../images/livroFechado.png') !important;
+}
+
+.devolucao {
+    /* background-image: url('../images/return.png') !important; */
+    background-image:url('../images/back-arrow.png') !important;
+}
+
+.emprestimo {
+    background-image: url('../images/Loan.png') !important;
+}
+
+.confirmar {
+    /* background-image: url('../images/accept.png') !important; */
+    background-image: url('../images/checked12.png') !important;
+}
+
+.patrimonioMenu {
+    background-image: url('../images/Patrimonio - icone.png') !important;
+}
+
+.controlePatrimonio {
+    background-image: url('../images/Patrimonio_icone_controle2.png') !important;
+}
+
+.hierarquia {
+    background-image: url('../images/unidades_organizacionais.png') !important;
+}
+
+.timeline {
+    background-image: url('../images/history2.png') !important;
+}
+
+.location {
+    background-image: url('../images/square246.png') !important;
+}
+
+.incidente {
+    background-image: url('../images/sim2.png') !important;
+}
+
+.fechar {
+    background-image: url('../images/closed69.png') !important;
+}
+
+.medidas {
+    background-image: url('../images/measuring-and-drawing-tools.png') !important;
+}
+
+.limpar {
+    background-image: url('../images/cancel-form.png') !important;
+}
+
+.digital {
+    background-image: url('../images/technology.png') !important;
+}
+
+.pontoUsuario {
+    background-image: url('../images/profile.png') !important;
+}
+
+.visaoAdmin {
+    background-image: url('../images/symbols.png') !important;
+}
+
+.infoPonto {
+    font-size: 30px
+}
+
+.infoHoras {
+    font-size: 15px
+}
+
+.digitalEntrada {    
+    background-image: url('../images/digital_in_32.png') !important; 
+}
+
+.digitalSaida {
+    background-image: url('../images/digital_out_32.png') !important; 
+}
+
+.informacao {
+    background-image: url('../images/info-button.png') !important;
+}
+
+.justificar {
+    background-image: url('../images/people.png') !important;   
+}
+
+.justificar-button {
+    background-image: url('../images/interface.png') !important;      
+}
+
+table#cargaHorariaCumprida, 
+table#cargaHorariaCumprida tr, 
+table#cargaHorariaCumprida th, 
+table#cargaHorariaCumprida td {
+    border-collapse: separate;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 1.1em;
+    font-family: "Times New Roman";    
+}
+
+.corrigirHorarios {
+    background-image: url('../images/warning-weather-interface-outlined-symbol.png') !important;
+}
+
+.splitbuttonicon {
+    background-image: url('../images/options-list.png') !important;
+}
+
+.splitbuttonicon2 {
+    background-image: url('../images/gear-loading.png') !important;
+}
