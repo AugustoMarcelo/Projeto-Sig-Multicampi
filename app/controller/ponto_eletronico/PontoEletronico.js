@@ -121,6 +121,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						} else if ((horarios[3] == null) && (horarios[2] != null))  {							
 							if (btnSaida02.isDisabled()) {
 								btnSaida02.setDisabled(false);
+								//teste2
 							}
 						}
 					}
