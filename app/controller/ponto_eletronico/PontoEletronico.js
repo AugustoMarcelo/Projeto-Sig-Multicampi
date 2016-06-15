@@ -117,13 +117,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						} else if ((horarios[2] == null) && (result.horaAgora >= Ext.Date.format(hora, 'H:i:s'))) { //SE O USUÁRIO NÃO BATEU O PONTO DE ENTRADA DO SEGUNDO EXPEDIENTE E JA SE PASSOU MAIS DE UMA HORA
 							if (btnEntrada02.isDisabled()) {
 								btnEntrada02.setDisabled(false);
-							}
-							// hora.setHours(hora.getHours() + 2);	
-							// if(result.horaAgora < (Ext.Date.format(hora, 'H:i:s'))) { //SE AINDA NÃO SE PASSARAM 3 HORAS DESDE O PONTO DE SAÍDA DO PRIMEIRO EXPEDIENTE						
-							// 	if (btnEntrada02.isDisabled()) {
-							// 		btnEntrada02.setDisabled(false);
-							// 	}
-							// }
+							}							
 						} else if ((horarios[3] == null) && (horarios[2] != null))  {							
 							if (btnSaida02.isDisabled()) {
 								btnSaida02.setDisabled(false);
