@@ -157,10 +157,10 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 		} else if (button.getItemId() == "saida01") {
 			turno = "saida01";
-			/*var btnEntrada02 = Ext.ComponentQuery.query("#entrada02")[0];
+			var btnEntrada02 = Ext.ComponentQuery.query("#entrada02")[0];
 			if (btnEntrada02.isDisabled()) {
 				btnEntrada02.setDisabled(false);
-			}*/
+			}
 
 		} else if (button.getItemId() == "entrada02") {					
 			turno = "entrada02";
@@ -168,15 +168,15 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			if (btnSaida02.isDisabled()) {
 				btnSaida02.setDisabled(false);
 			}
-			store.each(function (rec) {
-				if(Ext.Date.format(new Date(), 'd/m/Y') == Ext.Date.format(rec.get("dataPonto"), 'd/m/Y')) {					
-					var hora = rec.get("saida01");
-					hora.setHours(hora.getHours() + 3);					
-					if(Ext.Date.format(new Date(), 'H:i:s') >= Ext.Date.format(hora, 'H:i:s')) {						
-						Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
-					}
-				}
-			});
+			// store.each(function (rec) {
+			// 	if(Ext.Date.format(new Date(), 'd/m/Y') == Ext.Date.format(rec.get("dataPonto"), 'd/m/Y')) {					
+			// 		var hora = rec.get("saida01");
+			// 		hora.setHours(hora.getHours() + 3);					
+			// 		if(Ext.Date.format(new Date(), 'H:i:s') >= Ext.Date.format(hora, 'H:i:s')) {						
+			// 			Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
+			// 		}
+			// 	}
+			// });
 
 		} else if (button.getItemId() == "saida02") {
 			turno = "saida02";
