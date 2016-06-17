@@ -143,20 +143,21 @@
 
 	$sqlParte1 = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, if(p.entrada01 IS NULL, '--:--:--', p.entrada01) AS entrada01, if(p.saida01 IS NULL, '--:--:--', p.saida01) AS saida01, if(p.entrada02 IS NULL, '--:--:--', p.entrada02) AS entrada02, if(p.saida02 IS NULL, '--:--:--', p.saida02) AS saida02, if(p.totaldia IS NULL, '--:--:--', p.totaldia) AS totaldia, u.name AS usuarioId, p.usuarioId AS id";
 	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY usuarioId, p.id DESC";
-	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
-FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
+	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
+	$textoHorasTrabalhadas = "Servidores e horas totais de trabalho desde o início";
 	if(isset($_GET["valorDoFiltro"]) && $_GET["valorDoFiltro"] != null && $_GET["valorDoFiltro"] != "") {
 		$filtro = $_GET["valorDoFiltro"];
 		
 		if(isset($_GET['check']) && $_GET['check'] == 'true' ) {	
 								
 			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuarioId, p.id DESC";
-			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
-FROM pontospordia p, User u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuario ASC, usuarioId;";
+			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuario ASC, usuarioId;";
+			$textoHorasTrabalhadas = "Servidores e horas totais de ".  date('m', strtotime($filtro))."/".date('Y', strtotime($filtro));
 		} else {	
 			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuarioId, p.id DESC";
 			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
 FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuario ASC, usuarioId;";
+			$textoHorasTrabalhadas = "Servidores e horas totais de ".date('d/m/Y', strtotime($filtro));
 		}
 	}
 
@@ -210,7 +211,8 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 	$pdf->ColoredTable($header, $result);
 	
 	$pdf->AddPage();
-	$pdf->Cell(250, 0, 'Servidores e horas totais de '.(date('m') - 1).'/'.date('Y'), 0, 1, 'C');
+
+	$pdf->Cell(250, 0, $textoHorasTrabalhadas, 0, 1, 'C');
 	$pdf->Ln();
 	
 	$pdf->SetFillColor(71, 71, 71);
