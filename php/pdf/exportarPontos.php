@@ -38,7 +38,34 @@
 			$this->SetFont('');
 			//Data
 			$fill = 0;			
+			$id = 0;
 			foreach ($data as $row) {
+				if($id == 0) {
+					$id = $row['id'];
+				} else if($id != $row['id']) {
+					$this->Cell(array_sum($w), 0, '', 'T');
+					$this->AddPage();
+					$id = $row['id'];
+					$this->SetFillColor(71, 71, 71);
+					$this->SetTextColor(255);
+					$this->SetDrawColor(210, 210, 210);
+					$this->SetLineWidth(0.3);
+					$this->SetFont('', 'B');
+					//Header
+					$w = array(32, 70, 33, 33, 33, 33, 33);
+					$num_headers = count($header);
+					
+					for($i = 0; $i < $num_headers; ++$i) {
+						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
+					}
+					$this->Ln();
+					//Restaturação de cor e fonte
+					$this->SetFillColor(240, 240, 240);
+					$this->SetTextColor(0);
+					$this->SetFont('');
+					//Data
+					$fill = 0;							
+				}
 				/*
 					@params
 					{
@@ -49,7 +76,8 @@
 						
 						String que representa o alinhamento do texto (Left, Right, Center, Justify) 
 					}
-				*/				
+				*/
+								
 				$this->Cell($w[0], 6, $row['dataPonto'], 'LR', 0, 'C', $fill);				
 				$this->Cell($w[1], 6, $row['usuarioId'], 'LR', 0, 'C', $fill);
 				$this->Cell($w[2], 6, $row['entrada01'], 'LR', 0, 'C', $fill);
@@ -58,7 +86,7 @@
 				$this->Cell($w[5], 6, $row['saida02'], 'LR', 0, 'C', $fill);				
 				$this->Cell($w[6], 6, $row['totaldia'], 'LR', 0, 'C', $fill);
 				$this->Ln(); //Executa uma quebra de linha
-				$fill=!$fill; //Variável que informa se uma linha será transparente (FALSE) ou pintada (TRUE)				
+				$fill=!$fill; //Variável que informa se uma linha será transparente (FALSE) ou pintada (TRUE)												
 			}
 			$this->Cell(array_sum($w), 0, '', 'T');	
 			//$this->Cell(32, 0, 'Teste', 'B');		
@@ -113,7 +141,7 @@
 		}
 	}	
 
-	$sqlParte1 = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, if(p.entrada01 IS NULL, '--:--:--', p.entrada01) AS entrada01, if(p.saida01 IS NULL, '--:--:--', p.saida01) AS saida01, if(p.entrada02 IS NULL, '--:--:--', p.entrada02) AS entrada02, if(p.saida02 IS NULL, '--:--:--', p.saida02) AS saida02, if(p.totaldia IS NULL, '--:--:--', p.totaldia) AS totaldia, u.name AS usuarioId";
+	$sqlParte1 = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, if(p.entrada01 IS NULL, '--:--:--', p.entrada01) AS entrada01, if(p.saida01 IS NULL, '--:--:--', p.saida01) AS saida01, if(p.entrada02 IS NULL, '--:--:--', p.entrada02) AS entrada02, if(p.saida02 IS NULL, '--:--:--', p.saida02) AS saida02, if(p.totaldia IS NULL, '--:--:--', p.totaldia) AS totaldia, u.name AS usuarioId, p.usuarioId AS id";
 	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY usuarioId, p.id DESC";
 	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
 FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
