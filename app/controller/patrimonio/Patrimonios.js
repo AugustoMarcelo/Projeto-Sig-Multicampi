@@ -213,8 +213,7 @@ Ext.define('Packt.controller.patrimonio.Patrimonios', {
 		if(record[0]) {
 			var editWindow = this.getFormPatrimonio();
 			//var editWindow = this.getPatrimonioFormPatrimonioView();
-			editWindow.down('form').loadRecord(record[0]);
-
+			editWindow.down('form').loadRecord(record[0]);		
 			if(record[0].get('imagem')) {
 				var img = editWindow.down('image');
 				img.setSrc('resources/patrimonioImages/'+record[0].get('imagem'));

@@ -4,7 +4,7 @@ Ext.define('Packt.model.unidade.Unidade', {
 	idProperty: 'id',
 
 	fields: [
-		{name: 'id'},
+		{name: 'id', type: 'integer'},
 		{name: 'codigo'},
 		{name: 'nomeUnidade'},
 		{name: 'responsavel'}

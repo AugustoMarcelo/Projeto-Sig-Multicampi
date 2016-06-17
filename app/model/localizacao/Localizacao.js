@@ -4,7 +4,7 @@ Ext.define('Packt.model.localizacao.Localizacao', {
 	idProperty: 'id',
 
 	fields: [
-		{name: 'id'},
+		{name: 'id', type: 'integer'},
 		{name: 'numSala'},
 		{name: 'nomeDoLocal'},
 		{name: 'responsavel'}
