@@ -110,7 +110,6 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						 * SE O USUÁRIO BATEU PONTO, SERÁ VERIFICADO SE HOUVE MAIS ALGUMA MOVIMENTAÇÃO
 						 * VISTO QUE NO MÉTODO 'onRegistrarPonto()' O CLIQUE EM UM BOTÃO HABILITA O PRÓXIMO
 						 */
-
 						if (horarios[1] == null) { //SE O HORÁRIO DE SAÍDA FOR NULO, O USUÁRIO AINDA NÃO BATEU O PONTO DE SAÍDA
 							if (btnSaida01.isDisabled()) { //VERIFICANDO SE O BOTÃO ESTÁ DESABILITADO
 								btnSaida01.setDisabled(false); //HABILITANDO-O
@@ -151,10 +150,6 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 		} else if (button.getItemId() == "saida01") {
 			turno = "saida01";
-			var btnEntrada02 = Ext.ComponentQuery.query("#entrada02")[0];
-			if (btnEntrada02.isDisabled()) {
-				btnEntrada02.setDisabled(false);
-			}
 
 		} else if (button.getItemId() == "entrada02") {					
 			turno = "entrada02";
