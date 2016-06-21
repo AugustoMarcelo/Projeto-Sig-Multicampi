@@ -2,7 +2,8 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	extend: 'Ext.app.Controller',
 
 	requires: [
-		'Ext.form.field.Time'
+		'Ext.form.field.Time',
+		'Ext.form.FieldContainer'
 	],
 
 	views: [

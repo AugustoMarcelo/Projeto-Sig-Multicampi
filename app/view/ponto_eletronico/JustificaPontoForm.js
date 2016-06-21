@@ -1,12 +1,11 @@
 Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 	extend: 'Ext.window.Window',
-	alias: 'widget.justificapontoform',
-
+	alias: 'widget.justificapontoform',	
 	modal: true,
 	autoShow: true,
-	height: 350,
+	height: 370,
 	width: 390,
-	minHeight: 350,
+	minHeight: 370,
 	layout: {
 		type: 'fit'
 	},
@@ -29,22 +28,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 					xtype: 'datefield',
 					fieldLabel: 'Data do ponto',
 					name: 'dataPonto'
-				},
-				// {
-				// 	xtype: 'combobox',
-				// 	fieldLabel: 'Expediente',
-				// 	displayField: 'name',
-				// 	valueField: 'valor',
-				// 	store: Ext.create('Ext.data.Store', {
-				// 		fields: ['valor', 'name'],
-				// 		data: [
-				// 			{ "valor": "entrada01", "name": "Entrada/1º Expediente" },
-				// 			{ "valor": "saida01", "name": "Saída/1º Expediente" },
-				// 			{ "valor": "entrada01", "name": "Entrada/2º Expediente" },
-				// 			{ "valor": "saida02", "name": "Saída/2º Expediente" }
-				// 		]
-				// 	})
-				// },
+				},				
 				{
 					xtype: 'fieldset',
 					title: 'Horários',
@@ -64,7 +48,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							},							
 							items: [
 								{
-									fieldLabel: 'Exntrada - 1º Exp.',
+									fieldLabel: 'Entrada - 1º Exp.',
 									disabled: true,
 									labelWidth: 110,
 									name: 'entradaExp1',
@@ -83,22 +67,120 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									}
 								}
 							]
+						},
+						{
+							xtype: 'fieldcontainer',
+							name: 'fieldContainer_saida01',
+							defaultType: 'textfield',
+							layout: {
+								type: 'hbox'								
+							},							
+							items: [
+								{
+									fieldLabel: 'Saída    - 1º Exp.',
+									disabled: true,
+									labelWidth: 110,
+									name: 'saidaExp1',
+									itemId: 'saidaExp1'														
+								},								
+								{
+									xtype: 'checkbox',
+									boxLabel: 'Editar',
+									boxLabelAlign: 'after',									
+									padding: '0 0 0 10',
+									name: 'checkEditSaida1',
+									listeners: {
+										change: function(thisComponent, oldValue, newValue, eOpts) {
+											thisComponent.up('fieldcontainer').getComponent('saidaExp1').setDisabled(!thisComponent.getValue());
+										}
+									}
+								}
+							]
+						},
+						{
+							xtype: 'fieldcontainer',
+							name: 'fieldContainer_entrada02',
+							defaultType: 'textfield',
+							layout: {
+								type: 'hbox'								
+							},							
+							items: [
+								{
+									fieldLabel: 'Entrada - 2º Exp.',
+									disabled: true,
+									labelWidth: 110,
+									name: 'entradaExp2',
+									itemId: 'entradaExp2'														
+								},								
+								{
+									xtype: 'checkbox',
+									boxLabel: 'Editar',
+									boxLabelAlign: 'after',									
+									padding: '0 0 0 10',
+									name: 'checkEditEntrada2',
+									listeners: {
+										change: function(thisComponent, oldValue, newValue, eOpts) {
+											thisComponent.up('fieldcontainer').getComponent('entradaExp2').setDisabled(!thisComponent.getValue());
+										}
+									}
+								}
+							]
+						},
+						{
+							xtype: 'fieldcontainer',
+							name: 'fieldContainer_saida02',
+							defaultType: 'textfield',
+							layout: {
+								type: 'hbox'								
+							},							
+							items: [
+								{
+									fieldLabel: 'Saída - 2º Exp.',
+									disabled: true,
+									labelWidth: 110,
+									name: 'saidaExp2',
+									itemId: 'saidaExp2'														
+								},								
+								{
+									xtype: 'checkbox',
+									boxLabel: 'Editar',
+									boxLabelAlign: 'after',									
+									padding: '0 0 0 10',
+									name: 'checkEditSaida2',
+									listeners: {
+										change: function(thisComponent, oldValue, newValue, eOpts) {
+											thisComponent.up('fieldcontainer').getComponent('saidaExp2').setDisabled(!thisComponent.getValue());
+										}
+									}
+								}
+							]
 						}
 					]
 				},
 				{
-					xtype: 'textarea',
-					rows: 7,
-					fieldLabel: 'Justificativa',
-					emptyText: 'Justifique aqui o seu ponto',
-					anchor: '100%'
-				}
+					xtype: 'fieldset',
+					title: 'Justificativa',
+					name: 'fieldset_justificativa',
+					items: [
+						{
+							xtype: 'textarea',
+							name: 'textarea_justificativa',					
+							rows: 7,												
+							fieldStyle: {
+								backgroundImage: 'none;', 									//RETIRA A SOMBRA NO TOPO DO TEXTAREA
+								border: 'none;',											//RETIRAS AS BORDAS DO TEXTAREA
+								fontStyle: 'italic;'										//FONTE ITÁLICA
+							},										
+							emptyText: 'Justifique aqui o seu ponto',
+							anchor: '100%'
+						}
+					]
+				}				
 			],
 			dockedItems: [
 				{
 					xtype: 'toolbar',
-					dock: 'bottom',
-					//flex: 1,
+					dock: 'bottom',					
 					layout: {
 						pack: 'end',
 						type: 'hbox'
