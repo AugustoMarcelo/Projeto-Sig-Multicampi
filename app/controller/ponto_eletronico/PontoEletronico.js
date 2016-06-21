@@ -44,7 +44,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			},
 			"pontoeletronicousuario grid button[itemId=exportar_pdf_usuario]": {
 				click: this.onButtonClickPDF
-			},
+			},			
 			"pontoeletronicousuario container[itemId=containerBotoes] button": {
 				click: this.onRegistrarPonto
 			},
@@ -53,8 +53,31 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			},
 			"pontoeletronicousuario button[itemId=corrigirPonto]": {
 				click: this.onCorrigirPonto
+			},
+			"justificapontoform button#cancel": {
+				click: this.onCloseWindow
+			},
+			"justificapontoform datefield": {
+				select: this.onBuscarPontos,
+				change: this.onChangeValue				
+			},
+			"justificapontoform button#btnClearFilters": {
+				click: this.onClearFilter
 			}
 		});
+	},
+
+	onClearFilter: function(button, e, options) {
+		button.up('window').down('form').getForm().reset();
+	},
+
+	onBuscarPontos: function(field, value, eOpts) {
+		console.log(field.getValue());
+	},
+
+	onChangeValue: function(thisComponent, newValue, oldValue, eOpts) {
+		var btnClearFilters = thisComponent.up('fieldcontainer').getComponent('btnClearFilters');
+		btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
 	},
 
 	onCorrigirPonto: function (button, options) {
@@ -319,5 +342,9 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 	onJustificarPonto: function (button, e, options) {
 		Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
+	},
+
+	onCloseWindow: function(button, e, options) {
+		button.up('window').close();
 	}
 });

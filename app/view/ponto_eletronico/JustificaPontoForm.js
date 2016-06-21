@@ -1,6 +1,6 @@
 Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 	extend: 'Ext.window.Window',
-	alias: 'widget.justificapontoform',	
+	alias: 'widget.justificapontoform',
 	modal: true,
 	autoShow: true,
 	height: 370,
@@ -25,10 +25,28 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 					name: 'id'
 				},
 				{
-					xtype: 'datefield',
-					fieldLabel: 'Data do ponto',
-					name: 'dataPonto'
-				},				
+					xtype: 'fieldcontainer',
+					name: 'fieldContainer_date',
+					layout: 'hbox',
+					items: [
+						{
+							xtype: 'datefield',
+							fieldLabel: 'Data do ponto',
+							name: 'dataPonto',
+							labelWidth: 110,
+							width: 314,							
+							padding: '0 0 0 10'											
+						},
+						{
+							xtype: 'button',
+							itemId: 'btnClearFilters',
+							disabled: true,
+							iconCls: 'delete-filter',
+							tooltip: 'Limpar filtro',
+							margin: '0 0 0 10'							
+						}
+					]
+				},
 				{
 					xtype: 'fieldset',
 					title: 'Horários',
@@ -44,24 +62,24 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							name: 'fieldContainer_entrada01',
 							defaultType: 'textfield',
 							layout: {
-								type: 'hbox'								
-							},							
+								type: 'hbox'
+							},
 							items: [
 								{
 									fieldLabel: 'Entrada - 1º Exp.',
 									disabled: true,
 									labelWidth: 110,
 									name: 'entradaExp1',
-									itemId: 'entradaExp1'														
-								},								
+									itemId: 'entradaExp1'
+								},
 								{
 									xtype: 'checkbox',
 									boxLabel: 'Editar',
-									boxLabelAlign: 'after',									
+									boxLabelAlign: 'after',
 									padding: '0 0 0 10',
 									name: 'checkEditEntrada1',
 									listeners: {
-										change: function(thisComponent, oldValue, newValue, eOpts) {
+										change: function (thisComponent, oldValue, newValue, eOpts) {
 											thisComponent.up('fieldcontainer').getComponent('entradaExp1').setDisabled(!thisComponent.getValue());
 										}
 									}
@@ -73,24 +91,24 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							name: 'fieldContainer_saida01',
 							defaultType: 'textfield',
 							layout: {
-								type: 'hbox'								
-							},							
+								type: 'hbox'
+							},
 							items: [
 								{
 									fieldLabel: 'Saída    - 1º Exp.',
 									disabled: true,
 									labelWidth: 110,
 									name: 'saidaExp1',
-									itemId: 'saidaExp1'														
-								},								
+									itemId: 'saidaExp1'
+								},
 								{
 									xtype: 'checkbox',
 									boxLabel: 'Editar',
-									boxLabelAlign: 'after',									
+									boxLabelAlign: 'after',
 									padding: '0 0 0 10',
 									name: 'checkEditSaida1',
 									listeners: {
-										change: function(thisComponent, oldValue, newValue, eOpts) {
+										change: function (thisComponent, oldValue, newValue, eOpts) {
 											thisComponent.up('fieldcontainer').getComponent('saidaExp1').setDisabled(!thisComponent.getValue());
 										}
 									}
@@ -102,24 +120,24 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							name: 'fieldContainer_entrada02',
 							defaultType: 'textfield',
 							layout: {
-								type: 'hbox'								
-							},							
+								type: 'hbox'
+							},
 							items: [
 								{
 									fieldLabel: 'Entrada - 2º Exp.',
 									disabled: true,
 									labelWidth: 110,
 									name: 'entradaExp2',
-									itemId: 'entradaExp2'														
-								},								
+									itemId: 'entradaExp2'
+								},
 								{
 									xtype: 'checkbox',
 									boxLabel: 'Editar',
-									boxLabelAlign: 'after',									
+									boxLabelAlign: 'after',
 									padding: '0 0 0 10',
 									name: 'checkEditEntrada2',
 									listeners: {
-										change: function(thisComponent, oldValue, newValue, eOpts) {
+										change: function (thisComponent, oldValue, newValue, eOpts) {
 											thisComponent.up('fieldcontainer').getComponent('entradaExp2').setDisabled(!thisComponent.getValue());
 										}
 									}
@@ -131,24 +149,24 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							name: 'fieldContainer_saida02',
 							defaultType: 'textfield',
 							layout: {
-								type: 'hbox'								
-							},							
+								type: 'hbox'
+							},
 							items: [
 								{
 									fieldLabel: 'Saída - 2º Exp.',
 									disabled: true,
 									labelWidth: 110,
 									name: 'saidaExp2',
-									itemId: 'saidaExp2'														
-								},								
+									itemId: 'saidaExp2'
+								},
 								{
 									xtype: 'checkbox',
 									boxLabel: 'Editar',
-									boxLabelAlign: 'after',									
+									boxLabelAlign: 'after',
 									padding: '0 0 0 10',
 									name: 'checkEditSaida2',
 									listeners: {
-										change: function(thisComponent, oldValue, newValue, eOpts) {
+										change: function (thisComponent, oldValue, newValue, eOpts) {
 											thisComponent.up('fieldcontainer').getComponent('saidaExp2').setDisabled(!thisComponent.getValue());
 										}
 									}
@@ -164,23 +182,23 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 					items: [
 						{
 							xtype: 'textarea',
-							name: 'textarea_justificativa',					
-							rows: 7,												
+							name: 'textarea_justificativa',
+							rows: 7,
 							fieldStyle: {
 								backgroundImage: 'none;', 									//RETIRA A SOMBRA NO TOPO DO TEXTAREA
 								border: 'none;',											//RETIRAS AS BORDAS DO TEXTAREA
 								fontStyle: 'italic;'										//FONTE ITÁLICA
-							},										
+							},
 							emptyText: 'Justifique aqui o seu ponto',
 							anchor: '100%'
 						}
 					]
-				}				
+				}
 			],
 			dockedItems: [
 				{
 					xtype: 'toolbar',
-					dock: 'bottom',					
+					dock: 'bottom',
 					layout: {
 						pack: 'end',
 						type: 'hbox'

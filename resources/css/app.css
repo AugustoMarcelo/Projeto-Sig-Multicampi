@@ -435,3 +435,7 @@ table#cargaHorariaCumprida td {
 .splitbuttonicon2 {
     background-image: url('../images/gear-loading.png') !important;
 }
+
+.delete-filter {
+    background-image: url('../images/calendar-delete-button.png') !important;
+}
