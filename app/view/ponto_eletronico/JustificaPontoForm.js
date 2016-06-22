@@ -3,6 +3,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 	alias: 'widget.justificapontoform',
 	modal: true,
 	autoShow: true,
+	closable: false,
 	height: 370,
 	width: 390,
 	minHeight: 370,
@@ -21,8 +22,13 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 			items: [
 				{
 					xtype: 'hiddenfield',
-					fieldLabel: 'label',
+					fieldLabel: 'ID da Justificativa',
 					name: 'id'
+				},
+				{
+					xtype: 'hiddenfield',
+					fieldLabel: 'ID do ponto',
+					itemId: 'idPonto'
 				},
 				{
 					xtype: 'fieldcontainer',
@@ -49,13 +55,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 				},
 				{
 					xtype: 'fieldset',
-					title: 'Horários',
-					defaults: {
-						// xtype: 'textfield',
-						// emptyText: 'hh:mm:ss',
-						// anchor: '100%',
-						// labelWidth: 90						
-					},
+					itemId: 'fieldset_horarios',
+					title: 'Horários',					
 					items: [
 						{
 							xtype: 'fieldcontainer',

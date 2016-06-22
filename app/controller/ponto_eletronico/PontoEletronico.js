@@ -44,12 +44,12 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			},
 			"pontoeletronicousuario grid button[itemId=exportar_pdf_usuario]": {
 				click: this.onButtonClickPDF
-			},			
+			},
 			"pontoeletronicousuario container[itemId=containerBotoes] button": {
 				click: this.onRegistrarPonto
 			},
 			"pontoeletronicousuario button[itemId=justificarPonto]": {
-				click: this.onJustificarPonto
+				click: this.onOpenViewJustificarPonto
 			},
 			"pontoeletronicousuario button[itemId=corrigirPonto]": {
 				click: this.onCorrigirPonto
@@ -59,23 +59,56 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			},
 			"justificapontoform datefield": {
 				select: this.onBuscarPontos,
-				change: this.onChangeValue				
+				change: this.onChangeValue
 			},
 			"justificapontoform button#btnClearFilters": {
 				click: this.onClearFilter
+			},
+			"justificapontoform button#justificar": {
+				click: this.onJustificarPonto
 			}
 		});
 	},
 
-	onClearFilter: function(button, e, options) {
-		button.up('window').down('form').getForm().reset();
+	onJustificarPonto: function (button, e, options) {
+		console.log(button.up('form').down('hiddenfield#idPonto').getValue());
+		button.up('window').close();
 	},
 
-	onBuscarPontos: function(field, value, eOpts) {
-		console.log(field.getValue());
+	onClearFilter: function (button, e, options) {
+		button.up('fieldcontainer').down('datefield').reset();
+		var fieldset = button.up('form').getComponent('fieldset_horarios');
+		for (var i = 0; i < fieldset.items.length; i++) {
+			fieldset.query('textfield')[i].reset();
+			fieldset.query('checkbox')[i].setValue(false);
+		}
 	},
 
-	onChangeValue: function(thisComponent, newValue, oldValue, eOpts) {
+	onBuscarPontos: function (field, value, eOpts) {
+		Ext.Ajax.request({
+			url: 'php/ponto_eletronico/buscaPontos.php',
+			method: 'POST',
+			params: {
+				dataPonto: Ext.Date.format(field.getValue(), 'Y-m-d')
+			},
+
+			success: function (conn, response, options, eOpts) {
+				var result = Packt.util.Util.decodeJSON(conn.responseText);
+				var fieldset = field.up('form').getComponent('fieldset_horarios');
+				field.up('form').down('hiddenfield#idPonto').setValue(result.result.id);
+				fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);				
+				fieldset.query('textfield#saidaExp1')[0].setValue(result.result.saida01);
+				fieldset.query('textfield#entradaExp2')[0].setValue(result.result.entrada02);
+				fieldset.query('textfield#saidaExp2')[0].setValue(result.result.saida02);
+			},
+
+			failure: function (conn, response, options, eOpts) {
+				var result = Packt.util.Util.decodeJSON(conn.responseText);
+			}
+		});
+	},
+
+	onChangeValue: function (thisComponent, newValue, oldValue, eOpts) {
 		var btnClearFilters = thisComponent.up('fieldcontainer').getComponent('btnClearFilters');
 		btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
 	},
@@ -113,23 +146,23 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				var hoje = result.dataHoje;
 				store.on('load', function (st) {
 					store.each(function (rec) {
-						var dataPonto = Ext.Date.format(rec.get('dataPonto'), 'd/m/Y');						
+						var dataPonto = Ext.Date.format(rec.get('dataPonto'), 'd/m/Y');
 						//console.log(Ext.Date.format(rec.get('dataPonto'), 'd') - 1);
 						if (hoje == dataPonto) { //VERIFICA SE O USUÁRIO DEU REGISTROU O PRIMEIRO PONTO
-							bateuPonto = true;							
+							bateuPonto = true;
 							horarios[0] = rec.get('entrada01');
 							horarios[1] = rec.get('saida01');
 							horarios[2] = rec.get('entrada02');
 							horarios[3] = rec.get('saida02');
 							hora = horarios[1] != null ? new Date(horarios[1]) : null; //SE O USUÁRIO AINDA JÁ TIVER SAÍDO NO 1º EXPEDIENTE, RECUPERAR O HORÁRIO
-							hora != null? hora.setHours(hora.getHours() + 1) : null; //ACRESCENTAR UMA HORA AO HORÁRIO DE SAÍDA DO 1º EXPEDIENTE																				
+							hora != null ? hora.setHours(hora.getHours() + 1) : null; //ACRESCENTAR UMA HORA AO HORÁRIO DE SAÍDA DO 1º EXPEDIENTE																				
 						}
 					});
 					var btnEntrada01 = Ext.ComponentQuery.query('#entrada01')[0];
 					var btnSaida01 = Ext.ComponentQuery.query('#saida01')[0];
 					var btnEntrada02 = Ext.ComponentQuery.query('#entrada02')[0];
 					var btnSaida02 = Ext.ComponentQuery.query('#saida02')[0];
-					
+
 					if (!bateuPonto) {//SE NÃO NÃO BATEU O PONTO HOJE, HABILITAR O BOTÃO DA PRIMEIRA ENTRADA									
 						if (btnEntrada01.isDisabled()) {//VERIFICANDO SE O BOTÃO ESTÁ DESABILITADO
 							btnEntrada01.setDisabled(false);//HABILITANDO-O
@@ -146,8 +179,8 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						} else if ((horarios[2] == null) && (result.horaAgora >= Ext.Date.format(hora, 'H:i:s'))) { //SE O USUÁRIO NÃO BATEU O PONTO AINDA E O INTERVALO DE 1 HORA AINDA NÃO SE PASSOU 
 							if (btnEntrada02.isDisabled()) { //VERIFICA SE O BOTÃO ESTÁ DESABILITADO
 								btnEntrada02.setDisabled(false); //HABILITA O BOTÃO
-							}							
-						} else if ((horarios[3] == null) && (horarios[2] != null))  {							
+							}
+						} else if ((horarios[3] == null) && (horarios[2] != null)) {
 							if (btnSaida02.isDisabled()) {
 								btnSaida02.setDisabled(false);
 							}
@@ -165,7 +198,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	onRegistrarPonto: function (button, options) {
 		var panel = this.getPontoEletronicoUsuario(); //RECUPERANDO A REFERÊNCIA DO CONTAINER DE PONTO ELETRÔNICO
 		var store = panel.getComponent('grid_pontos').getStore(); //RECUPERANDO A STORE DO GRID QUE ESTÁ DENTRO DO PANEL
-		var turno;										
+		var turno;
 		/**
 		 * AO REGISTRAR A ENTRADA DO PRIMEIRO EXPEDIENTE, O PRÓXIMO BOTÃO, NO CASO O DE SAÍDA, É HABILITADO
 		 *  */
@@ -180,7 +213,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		} else if (button.getItemId() == "saida01") {
 			turno = "saida01";
 
-		} else if (button.getItemId() == "entrada02") {					
+		} else if (button.getItemId() == "entrada02") {
 			turno = "entrada02";
 			var btnSaida02 = Ext.ComponentQuery.query("#saida02")[0];
 			if (btnSaida02.isDisabled()) {
@@ -217,7 +250,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				var result = Packt.util.Util.decodeJSON(conn.responseText);
 
 				if (result.success) {
-					if(turno == "saida01") {
+					if (turno == "saida01") {
 						Packt.util.Alert.msg('Ponto Eletrônico', 'O próximo botão será habilitado em 1 (uma) hora');
 					} else {
 						Packt.util.Alert.msg('Ponto Eletrônico', 'Ponto registrado.');
@@ -231,15 +264,15 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	setDateFieldFormat: function (thisComponent, newValue, oldValue, eOpts) {
 		var dateField = thisComponent.up('toolbar').getComponent('filtroData');
 		var data = dateField.getValue();
-		if(thisComponent.getValue()) {		
-			dateField.format = 'm/Y'; 
-			dateField.submitFormat = 'm/Y'			
+		if (thisComponent.getValue()) {
+			dateField.format = 'm/Y';
+			dateField.submitFormat = 'm/Y'
 			dateField.setValue(Ext.Date.format(data, 'm/Y'));
-		} else {		
+		} else {
 			dateField.format = 'd/m/Y';
-			dateField.submitFormat = 'd/m/Y'			
+			dateField.submitFormat = 'd/m/Y'
 			dateField.setValue(dateField.lastValue);
-		}		
+		}
 	},
 
 	filtrarDataEventSelect: function (field, value, e0pts) {
@@ -259,7 +292,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		});
 	},
 
-	filtrarDataEventChange: function (thisComponent, newValue, oldValue, e0pts) {		
+	filtrarDataEventChange: function (thisComponent, newValue, oldValue, e0pts) {
 		if (thisComponent.getValue() == null) {//SE NÃO HOUVER VALOR NO CAMPO, RECARREGUE A STORE MOSTRANDO TODOS OS REGISTROS													
 			var store = Ext.getStore('pontoeletronico');
 			store.load();
@@ -340,11 +373,11 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		mainPanel.setActiveTab(newTab);
 	},
 
-	onJustificarPonto: function (button, e, options) {
+	onOpenViewJustificarPonto: function (button, e, options) {
 		Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
 	},
 
-	onCloseWindow: function(button, e, options) {
+	onCloseWindow: function (button, e, options) {
 		button.up('window').close();
 	}
 });
