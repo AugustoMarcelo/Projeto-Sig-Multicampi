@@ -388,7 +388,13 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 	//MÉTODO UTILIZADO PARA ABRIR O FORMULÁRIO DE JUSTIFICATIVA DE PONTO
 	onOpenViewJustificarPonto: function (button, e, options) {
-		Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
+		//Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
+		Ext.Msg.show({
+			title: 'Tenha calma...',
+			msg: 'Funcionalidade a ser liberada em breve',
+			buttons: Ext.Msg.OK,
+			icon: 'yoga'
+		});
 	},
 
 	//MÉTODO UTILIZADO PARA FECHAR O FORMULÁRIO DE JUSTIFICATIVA DE PONTO
