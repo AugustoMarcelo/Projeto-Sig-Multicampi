@@ -39,6 +39,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							xtype: 'datefield',
 							fieldLabel: 'Data do ponto',
 							name: 'dataPonto',
+							alowBlank: false,							
 							labelWidth: 110,
 							width: 314,							
 							padding: '0 0 0 10'											
@@ -184,6 +185,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 						{
 							xtype: 'textarea',
 							name: 'textarea_justificativa',
+							allowBlank: false,
 							rows: 7,
 							fieldStyle: {
 								backgroundImage: 'none;', 									//RETIRA A SOMBRA NO TOPO DO TEXTAREA
@@ -215,7 +217,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							xtype: 'button',
 							text: 'Justificar',
 							itemId: 'justificar',
-							iconCls: 'justificar-button'
+							iconCls: 'justificar-button',
+							formBind: true
 						}
 					]
 				}
