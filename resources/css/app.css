@@ -439,3 +439,8 @@ table#cargaHorariaCumprida td {
 .delete-filter {
     background-image: url('../images/calendar-delete-button.png') !important;
 }
+
+.yoga {
+    background-image: url('../images/Clock-32.png') !important;
+    background-repeat: no-repeat;
+}
