@@ -71,7 +71,12 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	},
 
 	onJustificarPonto: function (button, e, options) {
-		console.log(button.up('form').down('hiddenfield#idPonto').getValue());
+		var botoes = [];															//VETOR DE BOTÕES
+		botoes[1] = button.up('form').query('textfield#entradaExp1')[0];			//BOTÃO REFERENTE A ENTRADA DO 1º EXPEDIENTE
+		botoes[2] = button.up('form').query('textfield#saidaExp1')[0];				//BOTÃO REFERENTE A SAIDA DO 1º EXPEDIENTE
+		botoes[3] = button.up('form').query('textfield#entradaExp2')[0];			//BOTÃO REFERENTE A ENTRADA DO 2º EXPEDIENTE
+		botoes[4] = button.up('form').query('textfield#saidaExp2')[0];				//BOTÃO REFERENTE A SAIDA DO 2º EXPEDIENTE
+		//if(botoes[1].originalValue == botoes[1].getValue())				
 		button.up('window').close();
 	},
 
@@ -105,10 +110,14 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				var result = Packt.util.Util.decodeJSON(conn.responseText);
 				var fieldset = field.up('form').getComponent('fieldset_horarios');
 				field.up('form').down('hiddenfield#idPonto').setValue(result.result.id);
-				fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);				
+				fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);
+				fieldset.query('textfield#entradaExp1')[0].originalValue = result.result.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
 				fieldset.query('textfield#saidaExp1')[0].setValue(result.result.saida01);
+				fieldset.query('textfield#saidaExp1')[0].originalValue = result.result.saida01;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
 				fieldset.query('textfield#entradaExp2')[0].setValue(result.result.entrada02);
+				fieldset.query('textfield#entradaExp2')[0].originalValue = result.result.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
 				fieldset.query('textfield#saidaExp2')[0].setValue(result.result.saida02);
+				fieldset.query('textfield#saidaExp2')[0].originalValue = result.result.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
 			},
 
 			failure: function (conn, response, options, eOpts) {
@@ -388,13 +397,13 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 	//MÉTODO UTILIZADO PARA ABRIR O FORMULÁRIO DE JUSTIFICATIVA DE PONTO
 	onOpenViewJustificarPonto: function (button, e, options) {
-		//Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
-		Ext.Msg.show({
-			title: 'Tenha calma...',
-			msg: 'Funcionalidade a ser liberada em breve',
-			buttons: Ext.Msg.OK,
-			icon: 'yoga'
-		});
+		Ext.create('Packt.view.ponto_eletronico.JustificaPontoForm');
+		// Ext.Msg.show({
+		// 	title: 'Tenha calma...',
+		// 	msg: 'Funcionalidade a ser liberada em breve',
+		// 	buttons: Ext.Msg.OK,
+		// 	icon: 'yoga'
+		// });
 	},
 
 	//MÉTODO UTILIZADO PARA FECHAR O FORMULÁRIO DE JUSTIFICATIVA DE PONTO
