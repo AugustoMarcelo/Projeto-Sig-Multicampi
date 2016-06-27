@@ -337,7 +337,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		var checkFormat = field.up('toolbar').getComponent('month_year_only');
 		if (e.getKey() == e.ENTER) {
 			if (field.isValid()) {
-				var store = Ext.getStore('pontoeletronico');
+				var store = Ext.getStore('pontoeletronico');				
 				store.load({
 					filters: [
 						{

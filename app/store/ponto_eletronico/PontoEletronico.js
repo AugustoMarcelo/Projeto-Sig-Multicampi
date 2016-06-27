@@ -9,7 +9,7 @@ Ext.define('Packt.store.ponto_eletronico.PontoEletronico', {
 	model: 'Packt.model.ponto_eletronico.PontoEletronico',
 
 	storeId: 'pontoeletronico',
-
+	
 	autoLoad: true,
 	
 	proxy: {

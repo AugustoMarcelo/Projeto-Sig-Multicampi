@@ -23,7 +23,7 @@
 			
 			if(isset($filter[1]) && $filter[1]->property == "checkDateFormat" && $filter[1]->value == true) {
 				$sql = "SELECT * FROM pontospordia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto' GROUP BY id DESC LIMIT $start, $limit";		
-				$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto'");
+				$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto' LIMIT $start, $limit");
 			}		
 		}
 	} else {
