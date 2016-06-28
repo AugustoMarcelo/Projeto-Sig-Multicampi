@@ -52,7 +52,8 @@ Ext.application({
         'patrimonio.Patrimonios',
         'unidade.Unidades',
         'localizacao.Localizacoes',
-        'ponto_eletronico.PontoEletronico'
+        'ponto_eletronico.PontoEletronico',
+        'ponto_eletronico.Justificativas'
     ],
 
     splashscreen: {},
