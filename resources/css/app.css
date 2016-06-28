@@ -444,3 +444,7 @@ table#cargaHorariaCumprida td {
     background-image: url('../images/Clock-32.png') !important;
     background-repeat: no-repeat;
 }
+
+.justificativas {
+    background-image: url('../images/documents-symbol.png') !important;
+}
