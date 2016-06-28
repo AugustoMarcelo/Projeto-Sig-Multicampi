@@ -39,6 +39,7 @@ translations = {
  	menu5: 'Ponto Eletrônico Virtual',
  	menu51: 'Funcionários',
  	menu52: 'Administradores',
+	menu53: 'Justificativas',
 
  	buttonAdd: 'Adicionar',
  	buttonEdit: 'Editar',
