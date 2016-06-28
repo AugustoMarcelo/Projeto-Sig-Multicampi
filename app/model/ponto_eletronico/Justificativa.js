@@ -1,4 +1,4 @@
-Ext.define('Packt.model.ponto_eletronico_Justificativa', {
+Ext.define('Packt.model.ponto_eletronico.Justificativa', {
     extend: 'Ext.data.Model',
 
     idProperty: 'id',
