@@ -70,14 +70,56 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		});
 	},
 
-	onJustificarPonto: function (button, e, options) {
+	onJustificarPonto: function (button, e, options) {		
+		var modify = false;															//VARIÁVEL UTILIZADA PARA VERIFICAR SE HOUVE MUDANÇAS NOS HORÁRIOS DOS PONTOS
 		var botoes = [];															//VETOR DE BOTÕES
+		var form = button.up('form');												//REFERÊNCIA DO FORMULÁRIO
+
 		botoes[1] = button.up('form').query('textfield#entradaExp1')[0];			//BOTÃO REFERENTE A ENTRADA DO 1º EXPEDIENTE
 		botoes[2] = button.up('form').query('textfield#saidaExp1')[0];				//BOTÃO REFERENTE A SAIDA DO 1º EXPEDIENTE
 		botoes[3] = button.up('form').query('textfield#entradaExp2')[0];			//BOTÃO REFERENTE A ENTRADA DO 2º EXPEDIENTE
 		botoes[4] = button.up('form').query('textfield#saidaExp2')[0];				//BOTÃO REFERENTE A SAIDA DO 2º EXPEDIENTE
-		//if(botoes[1].originalValue == botoes[1].getValue())				
-		button.up('window').close();
+		
+		for (var i = 1; botoes.length; i++) {
+			if (botoes[i].originalValue != botoes[i].getValue()) {				
+				modify = true;
+				break;
+			}
+		}				
+		
+		if (modify) {
+			if (form.getForm().isValid()) {
+				form.getForm().submit({
+					clientValidation: true,
+					url: 'php/ponto_eletronico/inserirJustificativa.php',
+
+					success: function (form, action) {
+						var resultado = action.result;
+
+						if (resultado.success) {
+							Packt.util.Alert.msg('Ponto eletrônico', 'Ponto Justificado com sucesso.');
+							button.up('window').close();
+						}
+					},
+
+					failure: function (form, action) {
+						switch(action.failureType) {
+							case Ext.form.action.Action.CLIENT_INVALID:
+								Ext.Msg.alert('Erro', 'O formulário pode ter sido preenchido com valores inválidos');
+								break;
+							case Ext.form.action.Action.CONNECT_FAILURE:
+								Ext.Msg.alert('Erro', 'Falha na conexão com o servidor');
+								break;
+							case Ext.form.action.Action.SERVER_INVALID:
+								Ext.Msg.alert('Erro', action.result.msg);
+						}
+					}
+				});
+			}			
+
+		} else {
+			Packt.util.Alert.msg('Ponto eletrônico', 'Todos os horários estão iguais.');
+		} 
 	},
 
 	/**
@@ -257,7 +299,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		}
 		button.setDisabled(true);
 
-		var store = panel.getComponent('grid_pontos').getStore(); //RECUPERANDO A STORE DO GRID QUE ESTÁ DENTRO DO PANEL		
+		//var store = panel.getComponent('grid_pontos').getStore(); //RECUPERANDO A STORE DO GRID QUE ESTÁ DENTRO DO PANEL		
 		Ext.Ajax.request({
 			method: 'POST',
 			url: 'php/ponto_eletronico/inserirPonto.php',
