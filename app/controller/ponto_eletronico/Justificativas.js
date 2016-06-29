@@ -17,8 +17,7 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
         });
     },
 
-    onRender: function (component, options) {
-        console.log("carregando...");
-        component.getStore().load();
+    onRender: function (component, options) {        
+        //component.getStore().load();        
     }
 });
