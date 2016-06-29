@@ -28,6 +28,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 				{
 					xtype: 'hiddenfield',
 					fieldLabel: 'ID do ponto',
+					name: 'idPonto',
 					itemId: 'idPonto'
 				},
 				{
