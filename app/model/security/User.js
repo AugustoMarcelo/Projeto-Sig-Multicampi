@@ -4,14 +4,14 @@ Ext.define('Packt.model.security.User', {
     idProperty: 'id',
 
     fields: [
-        { name: 'id' },
-        { name: 'name' },
+        { name: 'id', type: 'integer'},
+        { name: 'name', type: 'string'},
         { name: 'userName' },
         { name: 'registration' },
         { name: 'password'},
         { name: 'picture'},
-        { name: 'level' },
-        { name: 'Group_id' },
+        { name: 'level', type: 'integer'},
+        { name: 'Group_id', type: 'string'},
         { name: 'status'}
     ]
 });
