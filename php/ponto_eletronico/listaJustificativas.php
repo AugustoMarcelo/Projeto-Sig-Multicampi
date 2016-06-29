@@ -9,7 +9,7 @@
         $idUserLogado = $_SESSION['user_id'];
     }
 
-    $sql = "SELECT p.dataPonto, j.entrada01, j.saida01, j.entrada02, j.saida02, j.dataJustificativa FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id GROUP BY j.dataJustificativa DESC LIMIT $start, $limit";
+    $sql = "SELECT p.id AS idPonto, j.entrada01, j.saida01, j.entrada02, j.saida02, j.dataJustificativa FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id GROUP BY j.dataJustificativa DESC LIMIT $start, $limit";
 
     $sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id AND j.idPonto = p.id AND p.UsuarioId = $idUserLogado LIMIT $start, $limit");
 
