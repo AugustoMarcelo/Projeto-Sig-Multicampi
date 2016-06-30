@@ -448,3 +448,23 @@ table#cargaHorariaCumprida td {
 .justificativas {
     background-image: url('../images/documents-symbol.png') !important;
 }
+
+.entrada01-justificada .x-entrada01-cell {
+    background-color: #5DFF4F;
+    color: #3300FF;
+}
+
+.saida01-justificada .x-saida01-cell {
+    background-color: #5DFF4F;
+    color: #3300FF;    
+}
+
+.entrada02-justificada .x-entrada02-cell {
+    background-color: #5DFF4F;
+    color: #3300FF;
+}
+
+.saida02-justificada .x-saida02-cell {
+    background-color: #5DFF4F;
+    color: #3300FF;
+}
