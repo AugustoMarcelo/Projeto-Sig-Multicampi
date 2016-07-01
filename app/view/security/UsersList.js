@@ -3,6 +3,7 @@ Ext.define('Packt.view.security.UsersList', {
 	alias: 'widget.userslist',
 	//frame: true,
 	//store: 'Packt.store.security.Users', 
+	allowDeselect: true,
 	store: 'users',	
 	columnLines: true,
 
