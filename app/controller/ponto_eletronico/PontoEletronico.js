@@ -150,16 +150,20 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 			success: function (conn, response, options, eOpts) {								//EM CASO DE SUCESSO, TODOS OS VALORES SERÃO SETADOS
 				var result = Packt.util.Util.decodeJSON(conn.responseText);
-				var fieldset = field.up('form').getComponent('fieldset_horarios');
-				field.up('form').down('hiddenfield#idPonto').setValue(result.result.id);
-				fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);
-				fieldset.query('textfield#entradaExp1')[0].originalValue = result.result.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
-				fieldset.query('textfield#saidaExp1')[0].setValue(result.result.saida01);
-				fieldset.query('textfield#saidaExp1')[0].originalValue = result.result.saida01;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-				fieldset.query('textfield#entradaExp2')[0].setValue(result.result.entrada02);
-				fieldset.query('textfield#entradaExp2')[0].originalValue = result.result.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-				fieldset.query('textfield#saidaExp2')[0].setValue(result.result.saida02);
-				fieldset.query('textfield#saidaExp2')[0].originalValue = result.result.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+				if (result.result != null) {
+					var fieldset = field.up('form').getComponent('fieldset_horarios');
+					field.up('form').down('hiddenfield#idPonto').setValue(result.result.id);
+					fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);
+					fieldset.query('textfield#entradaExp1')[0].originalValue = result.result.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
+					fieldset.query('textfield#saidaExp1')[0].setValue(result.result.saida01);
+					fieldset.query('textfield#saidaExp1')[0].originalValue = result.result.saida01;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+					fieldset.query('textfield#entradaExp2')[0].setValue(result.result.entrada02);
+					fieldset.query('textfield#entradaExp2')[0].originalValue = result.result.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+					fieldset.query('textfield#saidaExp2')[0].setValue(result.result.saida02);
+					fieldset.query('textfield#saidaExp2')[0].originalValue = result.result.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+				} else {																				
+					field.markInvalid("Você não registrou entradas nesse dia! Ao justificá-lo, será criado um ponto com horários não determinados.");										
+				}				
 			},
 
 			failure: function (conn, response, options, eOpts) {
@@ -175,7 +179,9 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	 */
 	onChangeValue: function (thisComponent, newValue, oldValue, eOpts) {
 		var btnClearFilters = thisComponent.up('fieldcontainer').getComponent('btnClearFilters');
+		var fieldset = thisComponent.up('form').getComponent('fieldset_horarios');
 		btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
+		fieldset.setDisabled(thisComponent.getValue() != null ? false : true);
 	},
 
 	onCorrigirPonto: function (button, options) {
