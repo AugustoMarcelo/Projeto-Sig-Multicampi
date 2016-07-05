@@ -6,7 +6,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 	closable: false,
 	height: 370,
 	width: 390,
-	minHeight: 370,
+	minHeight: 370,	
 	layout: {
 		type: 'fit'
 	},
@@ -39,7 +39,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 						{
 							xtype: 'datefield',
 							fieldLabel: 'Data do ponto',
-							name: 'dataPonto',
+							name: 'dataPonto',							
 							alowBlank: false,							
 							labelWidth: 110,
 							width: 314,							
@@ -58,6 +58,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 				{
 					xtype: 'fieldset',
 					itemId: 'fieldset_horarios',
+					disabled: true,
 					title: 'Horários',					
 					items: [
 						{
