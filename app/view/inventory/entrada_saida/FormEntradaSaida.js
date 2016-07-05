@@ -321,7 +321,7 @@ Ext.define('Packt.view.inventory.entrada_saida.FormEntradaSaida', {
 });
 
 function createTooltip(view) {//Função para mostrar uma informação ao passar o mouse sobre um registro
-
+	
 	view.tip = Ext.create('Ext.tip.ToolTip', {
 		target: view.el,
 		delegate: view.itemSelector,
@@ -329,10 +329,9 @@ function createTooltip(view) {//Função para mostrar uma informação ao passar
 		dismissDelay: 15000,
 		renderTo: Ext.getBody(),		
 		listeners: {
-			beforeShow: function(tip) {
-
+			beforeShow: function(tip) {				
 				var tooltip = view.getRecord(tip.triggerElement).get('observacoes');
-				
+								
 				if(tooltip == "") {					
 					tip.update("Nenhuma observação");					
 
