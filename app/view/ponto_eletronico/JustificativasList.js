@@ -7,14 +7,14 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
     initComponent: function() {
         var me = this;
         var other = Ext.getStore('pontoeletronico');
-
+        
         if(Ext.isString(me.store)) {
 			me.store = Ext.create('Packt.store.ponto_eletronico.Justificativas');
 		}
 
         if(other == undefined || other == null) {
             other = Ext.create('Packt.store.ponto_eletronico.PontoEletronico');
-            other.load();
+            other.load();            
         } 
         
         Ext.apply(me, {                     
@@ -28,18 +28,18 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         text: 'Servidor',
                         dataIndex: 'idPonto',
                         hidden: true,
-                        renderer: function (value, metaData, record) {
+                        renderer: function (value, metaData, record) {                                                                                    
                             var ponto = other.findRecord('id', value);
-                            var userStore = Ext.getStore('users');
+                            var userStore = Ext.getStore('users');   
 
                             if (ponto != null) {
-                                var user = userStore.findRecord('id', ponto.get('usuarioId'));
+                                var user = userStore.findRecord('id', ponto.get('usuarioId'));                                
                                 if (user != null) {
                                     return user.get('name');
                                 } else {
                                     return 'Carregando funcionário...';
                                 }    
-                            } else {
+                            } else {                                                                
                                 return 'Carregando funcionário...';
                             }
                         }
@@ -50,7 +50,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         text: 'Ponto', 
                         dataIndex: 'idPonto',
                         //PARA QUE O RENDERER FUNCIONE, A STORE DEVE ESTAR PREVIAMENTE CARREGADA NA MEMÓRIA
-                        renderer: function(value, metaData, record) {
+                        renderer: function(value, metaData, record) {                            
                             var ponto = other.findRecord('id', value);                                                                     
                                                                             
                             if (ponto != null) {
