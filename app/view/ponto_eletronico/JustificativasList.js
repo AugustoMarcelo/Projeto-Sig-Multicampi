@@ -4,7 +4,6 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
 
     store: 'ponto_eletronico.Justificativas',
     columnLines: true,
-    allowDeselect: true,
     initComponent: function() {
         var me = this;
         var other = Ext.getStore('pontoeletronico');
@@ -25,6 +24,26 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                 },                
                 //ESCREVENDO AS COLUNAS COMO ITENS PODE-SE DEFINIR UMA CONFIGURAÇÃO PADRÃO PARA TODOS OS ELEMENTOS
                 items: [
+                    {
+                        text: 'Servidor',
+                        dataIndex: 'idPonto',
+                        hidden: true,
+                        renderer: function (value, metaData, record) {
+                            var ponto = other.findRecord('id', value);
+                            var userStore = Ext.getStore('users');
+
+                            if (ponto != null) {
+                                var user = userStore.findRecord('id', ponto.get('usuarioId'));
+                                if (user != null) {
+                                    return user.get('name');
+                                } else {
+                                    return 'Carregando funcionário...';
+                                }    
+                            } else {
+                                return 'Carregando funcionário...';
+                            }
+                        }
+                    },
                     {      
                         xtype: 'datecolumn',
                         format: 'd/m/Y',              
