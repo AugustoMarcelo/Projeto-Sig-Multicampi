@@ -14,9 +14,41 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
             "justificativaslist": {
                 render: this.onRender,
                 cellclick: this.onCellClick,
-                itemmouseleave: this.onItemMouseLeave
+                itemmouseleave: this.onItemMouseLeave,
+                itemcontextmenu: this.onRightClickRow
             }
         });
+    },
+
+    onRightClickRow: function (view, record, item, index, e, eOpts) {
+        e.stopEvent();
+        var menu = Ext.create('Ext.menu.Menu', {
+            items: [
+                {
+                    text: 'Ver justificativa',
+                    iconCls: 'verJustificativa',
+                    handler: function () {
+                        Ext.create('Ext.window.Window', {
+                            title: 'Hello',
+                            autoShow: true,
+                            height: 200,
+                            width: 400,
+                            layout: 'fit',
+                            items: {
+                                xtype: 'text',
+                                padding: 10,                                                                
+                                text: record.get('justificativa')
+                            }
+                        });
+                    }
+                }
+            ]
+        });
+
+        menu.addListener('click', function () {
+            menu.destroy()
+        });
+        menu.showAt(e.getXY());
     },
 
     /**
@@ -63,7 +95,7 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
             cellIndexStart = 1;
             cellIndexEnd = 6;
         }
-        
+
         if (cellIndex > cellIndexStart && cellIndex < cellIndexEnd) {                   //VERIFICANDO SE O USUÁRIO ESTÁ CLICANDO EM UMA CÉLULA QUE CONTÉM HORÁRIO
             view.tip = Ext.create('Ext.tip.ToolTip', {
                 itemId: 'tooltip-horario',
@@ -75,7 +107,7 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
                 title: 'Horário original',
                 delegate: view.cellSelector,
                 trackMouse: false,
-                autoHide: true,                
+                autoHide: true,
             });
             var ponto = store.findRecord('id', record.get('idPonto'));
             var horario;
