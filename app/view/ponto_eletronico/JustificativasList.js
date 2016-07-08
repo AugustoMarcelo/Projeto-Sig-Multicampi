@@ -26,14 +26,14 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                 items: [
                     {
                         text: 'Servidor',
-                        dataIndex: 'idPonto',
+                        dataIndex: 'idPonto',                                                
                         hidden: true,
                         renderer: function (value, metaData, record) {                                                                                    
                             var ponto = other.findRecord('id', value);
                             var userStore = Ext.getStore('users');   
 
-                            if (ponto != null) {
-                                var user = userStore.findRecord('id', ponto.get('usuarioId'));                                
+                            if (ponto != null) {                                
+                                var user = userStore.findRecord('id', ponto.get('usuarioId'), 0, false, false, true);                                                               
                                 if (user != null) {
                                     return user.get('name');
                                 } else {
