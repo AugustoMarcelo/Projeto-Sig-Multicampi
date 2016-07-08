@@ -448,3 +448,7 @@ table#cargaHorariaCumprida td {
 .justificativas {
     background-image: url('../images/documents-symbol.png') !important;
 }
+
+.verJustificativa {
+    background-image: url('../images/searching-documents.png') !important;
+}
