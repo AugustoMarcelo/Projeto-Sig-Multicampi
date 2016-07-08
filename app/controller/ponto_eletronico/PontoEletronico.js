@@ -162,9 +162,17 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						fieldset.query('textfield#entradaExp2')[0].originalValue = result.ponto.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
 						fieldset.query('textfield#saidaExp2')[0].setValue(result.ponto.saida02);
 						fieldset.query('textfield#saidaExp2')[0].originalValue = result.ponto.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-					} else {
-						Ext.Msg.alert('Opa..', 'Você já tem uma justificativa para esse ponto.'+'<br />'+'Vá ao menu de justificativas e edite-a');
-						field.reset();
+					} else {												
+						Ext.Msg.show({
+							title: 'Opa..',
+							closable: false,
+							msg: 'Você já justificou esse dia.' + '<br />' + 'Vá ao menu de justificativas e edite-a',
+							buttons: Ext.Msg.OK,
+							icon: 'stop',
+							fn: function() {
+								field.reset();
+							}
+						});
 					}
 				} else {
 					field.markInvalid("Você não registrou entradas nesse dia! Ao justificá-lo, será criado um ponto com horários não determinados.");
