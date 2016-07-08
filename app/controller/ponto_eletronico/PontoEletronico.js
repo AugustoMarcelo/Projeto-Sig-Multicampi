@@ -70,7 +70,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		});
 	},
 
-	onJustificarPonto: function (button, e, options) {		
+	onJustificarPonto: function (button, e, options) {
 		var modify = false;															//VARIÁVEL UTILIZADA PARA VERIFICAR SE HOUVE MUDANÇAS NOS HORÁRIOS DOS PONTOS
 		var botoes = [];															//VETOR DE BOTÕES
 		var form = button.up('form');												//REFERÊNCIA DO FORMULÁRIO
@@ -79,14 +79,14 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		botoes[2] = button.up('form').query('textfield#saidaExp1')[0];				//BOTÃO REFERENTE A SAIDA DO 1º EXPEDIENTE
 		botoes[3] = button.up('form').query('textfield#entradaExp2')[0];			//BOTÃO REFERENTE A ENTRADA DO 2º EXPEDIENTE
 		botoes[4] = button.up('form').query('textfield#saidaExp2')[0];				//BOTÃO REFERENTE A SAIDA DO 2º EXPEDIENTE
-		
+
 		for (var i = 1; botoes.length; i++) {
-			if (botoes[i].originalValue != botoes[i].getValue()) {				
+			if (botoes[i].originalValue != botoes[i].getValue()) {
 				modify = true;
 				break;
 			}
-		}				
-		
+		}
+
 		if (modify) {
 			if (form.getForm().isValid()) {
 				form.getForm().submit({
@@ -103,7 +103,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 					},
 
 					failure: function (form, action) {
-						switch(action.failureType) {
+						switch (action.failureType) {
 							case Ext.form.action.Action.CLIENT_INVALID:
 								Ext.Msg.alert('Erro', 'O formulário pode ter sido preenchido com valores inválidos');
 								break;
@@ -115,11 +115,11 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						}
 					}
 				});
-			}			
+			}
 
 		} else {
 			Packt.util.Alert.msg('Ponto eletrônico', 'Todos os horários estão iguais.');
-		} 
+		}
 	},
 
 	/**
@@ -150,20 +150,25 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 
 			success: function (conn, response, options, eOpts) {								//EM CASO DE SUCESSO, TODOS OS VALORES SERÃO SETADOS
 				var result = Packt.util.Util.decodeJSON(conn.responseText);
-				if (result.result != null) {
-					var fieldset = field.up('form').getComponent('fieldset_horarios');
-					field.up('form').down('hiddenfield#idPonto').setValue(result.result.id);
-					fieldset.query('textfield#entradaExp1')[0].setValue(result.result.entrada01);
-					fieldset.query('textfield#entradaExp1')[0].originalValue = result.result.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
-					fieldset.query('textfield#saidaExp1')[0].setValue(result.result.saida01);
-					fieldset.query('textfield#saidaExp1')[0].originalValue = result.result.saida01;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-					fieldset.query('textfield#entradaExp2')[0].setValue(result.result.entrada02);
-					fieldset.query('textfield#entradaExp2')[0].originalValue = result.result.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-					fieldset.query('textfield#saidaExp2')[0].setValue(result.result.saida02);
-					fieldset.query('textfield#saidaExp2')[0].originalValue = result.result.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-				} else {																				
-					field.markInvalid("Você não registrou entradas nesse dia! Ao justificá-lo, será criado um ponto com horários não determinados.");										
-				}				
+				if (result.ponto != null) {
+					if (result.justificativa == null) {
+						var fieldset = field.up('form').getComponent('fieldset_horarios');
+						field.up('form').down('hiddenfield#idPonto').setValue(result.ponto.id);
+						fieldset.query('textfield#entradaExp1')[0].setValue(result.ponto.entrada01);
+						fieldset.query('textfield#entradaExp1')[0].originalValue = result.ponto.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
+						fieldset.query('textfield#saidaExp1')[0].setValue(result.ponto.saida01);
+						fieldset.query('textfield#saidaExp1')[0].originalValue = result.ponto.saida01;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+						fieldset.query('textfield#entradaExp2')[0].setValue(result.ponto.entrada02);
+						fieldset.query('textfield#entradaExp2')[0].originalValue = result.ponto.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+						fieldset.query('textfield#saidaExp2')[0].setValue(result.ponto.saida02);
+						fieldset.query('textfield#saidaExp2')[0].originalValue = result.ponto.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
+					} else {
+						Ext.Msg.alert('Opa..', 'Você já tem uma justificativa para esse ponto.'+'<br />'+'Vá ao menu de justificativas e edite-a');
+						field.reset();
+					}
+				} else {
+					field.markInvalid("Você não registrou entradas nesse dia! Ao justificá-lo, será criado um ponto com horários não determinados.");
+				}
 			},
 
 			failure: function (conn, response, options, eOpts) {
@@ -350,7 +355,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			dateField.setValue(dateField.lastValue);								//SETE NO DATEFIELD A ÚLTIMA DATA QUE CONTINHA A FORMATAÇÃO PADRÃO DA APLICAÇÃO
 		}
 	},
-	
+
 	/**
 	 * MÉTODO UTILIZADO PARA FILTRAR OS PONTOS A PARTIR DA TECLA 'ENTER'
 	 */
@@ -378,7 +383,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		if (thisComponent.getValue() == null) {													//SE NÃO HOUVER VALOR NO CAMPO, RECARREGUE A STORE MOSTRANDO TODOS OS REGISTROS													
 			var store = Ext.getStore('pontoeletronico');
 			store.load();
-		} else {			
+		} else {
 			var tip = Ext.create('Ext.tip.ToolTip', {
 				target: thisComponent.el,
 				trackMouse: true, 																//ACOMPANHA O MOUSE ENQUANTO O MESMO ESTIVER DENTO DO CAMPO															
@@ -394,7 +399,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		var checkFormat = field.up('toolbar').getComponent('month_year_only');
 		if (e.getKey() == e.ENTER) {
 			if (field.isValid()) {
-				var store = Ext.getStore('pontoeletronico');				
+				var store = Ext.getStore('pontoeletronico');
 				store.load({
 					filters: [
 						{
