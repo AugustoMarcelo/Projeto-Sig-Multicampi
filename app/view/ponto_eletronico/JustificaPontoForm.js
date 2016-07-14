@@ -34,6 +34,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 				{
 					xtype: 'fieldcontainer',
 					name: 'fieldContainer_date',
+					itemId: 'fieldContainer_date',
 					layout: 'hbox',
 					items: [
 						{
@@ -73,7 +74,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									fieldLabel: 'Entrada - 1º Exp.',
 									disabled: true,
 									labelWidth: 110,
-									name: 'entradaExp1',
+									name: 'entrada01',
 									itemId: 'entradaExp1'
 								},
 								{
@@ -99,10 +100,10 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							},
 							items: [
 								{
-									fieldLabel: 'Saída    - 1º Exp.',
+									fieldLabel: 'Saída - 1º Exp.',
 									disabled: true,
 									labelWidth: 110,
-									name: 'saidaExp1',
+									name: 'saida01',
 									itemId: 'saidaExp1'
 								},
 								{
@@ -131,7 +132,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									fieldLabel: 'Entrada - 2º Exp.',
 									disabled: true,
 									labelWidth: 110,
-									name: 'entradaExp2',
+									name: 'entrada02',
 									itemId: 'entradaExp2'
 								},
 								{
@@ -160,7 +161,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									fieldLabel: 'Saída - 2º Exp.',
 									disabled: true,
 									labelWidth: 110,
-									name: 'saidaExp2',
+									name: 'saida02',
 									itemId: 'saidaExp2'
 								},
 								{
@@ -186,7 +187,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 					items: [
 						{
 							xtype: 'textarea',
-							name: 'textarea_justificativa',
+							name: 'justificativa',
 							allowBlank: false,
 							rows: 7,
 							fieldStyle: {
