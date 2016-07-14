@@ -11,24 +11,23 @@
 
 	if(isset($_GET['filter'])) {
 		$filter = json_decode($_GET['filter']);		
-		if($filter[0]->property == "limit") {
+		if($filter[0]->property == "limit") { //SE HOUVER LIMITE, SOMENTE OS 5 ÚLTIMOS PONTOS SERÃO MOSTRADOS NO GRID DE FUNCIONÁRIO
 			$limit = $filter[0]->value;
 			$sql = "SELECT * FROM pontospordia WHERE $idUserLogado = usuarioId  GROUP BY id DESC LIMIT $start, $limit";		
 			$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE $idUserLogado = usuarioId LIMIT $start, $limit");
 		
-		} elseif($filter[0]->property == "dataPonto") {
+		} elseif($filter[0]->property == "dataPonto") { //FILTRO PARA MOSTRAR OS PONTOS EM UMA DATA dd/mm/aaaa
 			$dataPonto = $filter[0]->value;
-			$sql = "SELECT * FROM pontospordia WHERE dataPonto = '$dataPonto' GROUP BY id DESC LIMIT $start, $limit";		
+			$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.dataPonto = '$dataPonto' AND p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";		
 			$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE dataPonto = '$dataPonto'");
 			
-			if(isset($filter[1]) && $filter[1]->property == "checkDateFormat" && $filter[1]->value == true) {
-				$sql = "SELECT * FROM pontospordia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto' GROUP BY id DESC LIMIT $start, $limit";		
+			if(isset($filter[1]) && $filter[1]->property == "checkDateFormat" && $filter[1]->value == true) { //SE O CHECKBOX DO GRID ESTIVER MARCADO, A PESQUISA LEVARÁ EM CONSIDERAÇÃO SOMENTE MÊS E ANO
+				$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE DATE_FORMAT(p.dataPonto, '%Y-%m') = '$dataPonto' AND p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";		
 				$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto' LIMIT $start, $limit");
 			}		
 		}
-	} else {
-		//$sql = "SELECT 	p.dataPonto, u.name, p.entrada01, p.saida01, p.saida02, p.entrada02 FROM pontospordia INNER JOIN user GROUP BY p.id DESC LIMIT $start, $limit";
-		$sql = "SELECT * FROM pontospordia GROUP BY id DESC LIMIT $start, $limit";
+	} else { //SE NÃO HOUVER FILTROS, TODOS OS PONTOS SERÃO MOSTRADOS (visão para admin)
+		$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";
 		$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia");
 	}
 
