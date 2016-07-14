@@ -97,8 +97,14 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						var resultado = action.result;
 
 						if (resultado.success) {
-							Packt.util.Alert.msg('Ponto eletrônico', 'Ponto Justificado com sucesso.');
-							button.up('window').close();
+							if (resultado.novo) {
+								Packt.util.Alert.msg('Ponto eletrônico', 'Ponto Justificado com sucesso.');
+								button.up('window').close();
+							} else {
+								Packt.util.Alert.msg('Ponto eletrônico', 'Justificativa alterada com sucesso.');
+								button.up('window').close();
+							}
+							Ext.getStore('justificativas').load();
 						}
 					},
 
@@ -162,14 +168,14 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						fieldset.query('textfield#entradaExp2')[0].originalValue = result.ponto.entrada02;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
 						fieldset.query('textfield#saidaExp2')[0].setValue(result.ponto.saida02);
 						fieldset.query('textfield#saidaExp2')[0].originalValue = result.ponto.saida02;		 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO
-					} else {												
+					} else {
 						Ext.Msg.show({
 							title: 'Opa..',
 							closable: false,
 							msg: 'Você já justificou esse dia.' + '<br />' + 'Vá ao menu de justificativas e edite-a',
 							buttons: Ext.Msg.OK,
 							icon: 'stop',
-							fn: function() {
+							fn: function () {
 								field.reset();
 							}
 						});
