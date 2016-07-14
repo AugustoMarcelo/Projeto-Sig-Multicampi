@@ -8,7 +8,7 @@
     $resultQuery = $result->fetch_assoc();
     
     if ($resultQuery) {
-        $sql = "SELECT j.id FROM justificativa j, pontospordia p WHERE j.idPonto = p.id";
+        $sql = "SELECT j.id FROM justificativa j, pontospordia p WHERE j.idPonto = p.id AND '$data' = p.dataPonto AND p.usuarioId = '$idUserSession'";
         $result = $mysqli->query($sql);
         $resultQueryJustificativas = $result->fetch_assoc();
     }
