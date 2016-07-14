@@ -8,12 +8,12 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 	columnLines: true,
 
 	initComponent: function() {
-		var me = this;
+		var me = this;		
 
 		if(Ext.isString(me.store)) {
 			me.store = Ext.create('Packt.store.ponto_eletronico.PontoEletronico');
 		}
-
+		
 		Ext.apply(me, {
 			columns: [				
 				{
@@ -25,15 +25,10 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 					align: 'center'
 				},
 				{
-					text: 'Usuário',
-					dataIndex: 'usuarioId',
+					text: 'Usuário',					
+					dataIndex: 'nomeUsuario',
 					width: '22%',
-					align: 'center',
-					renderer: function(value, metaData, record ){ 
-						var usuarioStore = Ext.getStore('users');			
-						var usuario = usuarioStore.findRecord('id', value);						
-						return usuario != null ? usuario.get('name') : value;
-					}
+					align: 'center'
 				},
 				{
 					text: 'IP da Máquina',
