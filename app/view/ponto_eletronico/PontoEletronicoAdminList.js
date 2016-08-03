@@ -3,6 +3,10 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 
 	alias: 'widget.pontoeletronicoadminlist',
 
+	// store: {
+	// 	type: 'pontoeletronico'
+	// },
+
 	store: 'pontoeletronico',
 
 	columnLines: true,
@@ -12,8 +16,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 
 		if(Ext.isString(me.store)) {
 			me.store = Ext.create('Packt.store.ponto_eletronico.PontoEletronico');
-		}
-		
+		}		
+
 		Ext.apply(me, {
 			columns: [				
 				{
@@ -43,10 +47,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 					dataIndex: 'entrada01',
 					width: '13%',
 					align: 'center',
-					renderer: function(value, metaData, record) {
-						var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-						var ponto = pontoEletronicoStore.findRecord('entrada01', value);
-						return ponto != null ? Ext.Date.format(ponto.get('entrada01'), 'H:i:s') : '--:--:--';
+					renderer: function(value, metaData, record) {						
+						return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
 					}
 				},
 				{
@@ -56,10 +58,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 					dataIndex: 'saida01',
 					width: '13%',
 					align: 'center',
-					renderer: function(value, metaData, record) {
-						var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-						var ponto = pontoEletronicoStore.findRecord('saida01', value);
-						return ponto != null ? Ext.Date.format(ponto.get('saida01'), 'H:i:s') : '--:--:--';
+					renderer: function(value, metaData, record) {						
+						return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
 					}
 				},
 				{
@@ -69,10 +69,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 					dataIndex: 'entrada02',
 					width: '13%',
 					align: 'center',
-					renderer: function(value, metaData, record) {
-						var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-						var ponto = pontoEletronicoStore.findRecord('entrada02', value);
-						return ponto != null ? Ext.Date.format(ponto.get('entrada02'), 'H:i:s') : '--:--:--';
+					renderer: function(value, metaData, record) {						
+						return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
 					}
 				},
 				{
@@ -82,10 +80,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoAdminList', {
 					dataIndex: 'saida02',
 					width: '13%',
 					align: 'center',
-					renderer: function(value, metaData, record) {
-						var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-						var ponto = pontoEletronicoStore.findRecord('saida02', value);
-						return ponto != null ? Ext.Date.format(ponto.get('saida02'), 'H:i:s') : '--:--:--';
+					renderer: function(value, metaData, record) {						
+						return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
 					}
 				}
 			],			
