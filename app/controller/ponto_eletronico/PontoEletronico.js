@@ -71,17 +71,17 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	},
 
 	onJustificarPonto: function (button, e, options) {
-		var modify = false;															//VARIÁVEL UTILIZADA PARA VERIFICAR SE HOUVE MUDANÇAS NOS HORÁRIOS DOS PONTOS
-		var botoes = [];															//VETOR DE BOTÕES
-		var form = button.up('form');												//REFERÊNCIA DO FORMULÁRIO
+		var modify = false;																//VARIÁVEL UTILIZADA PARA VERIFICAR SE HOUVE MUDANÇAS NOS HORÁRIOS DOS PONTOS
+		var textfields = [];															//VETOR DE TEXTFIELDS
+		var form = button.up('form');													//REFERÊNCIA DO FORMULÁRIO
 
-		botoes[1] = button.up('form').query('textfield#entradaExp1')[0];			//BOTÃO REFERENTE A ENTRADA DO 1º EXPEDIENTE
-		botoes[2] = button.up('form').query('textfield#saidaExp1')[0];				//BOTÃO REFERENTE A SAIDA DO 1º EXPEDIENTE
-		botoes[3] = button.up('form').query('textfield#entradaExp2')[0];			//BOTÃO REFERENTE A ENTRADA DO 2º EXPEDIENTE
-		botoes[4] = button.up('form').query('textfield#saidaExp2')[0];				//BOTÃO REFERENTE A SAIDA DO 2º EXPEDIENTE
+		textfields[1] = button.up('form').query('textfield#entradaExp1')[0];			//TEXTFIELD REFERENTE A ENTRADA DO 1º EXPEDIENTE
+		textfields[2] = button.up('form').query('textfield#saidaExp1')[0];				//TEXTFIELD REFERENTE A SAIDA DO 1º EXPEDIENTE
+		textfields[3] = button.up('form').query('textfield#entradaExp2')[0];			//TEXTFIELD REFERENTE A ENTRADA DO 2º EXPEDIENTE
+		textfields[4] = button.up('form').query('textfield#saidaExp2')[0];				//TEXTFIELD REFERENTE A SAIDA DO 2º EXPEDIENTE
 
-		for (var i = 1; botoes.length; i++) {
-			if (botoes[i].originalValue != botoes[i].getValue()) {
+		for (var i = 1; textfields.length; i++) {
+			if (textfields[i].originalValue != textfields[i].getValue()) {
 				modify = true;
 				break;
 			}
@@ -281,8 +281,8 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		});
 	},
 
-	onRender: function (component, options) {
-		var store = component.getStore();
+	onRender: function (component, options) {		
+		component.getStore().load();
 	},
 
 	onRegistrarPonto: function (button, options) {
