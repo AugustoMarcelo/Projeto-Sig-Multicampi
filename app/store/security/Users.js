@@ -7,7 +7,7 @@ Ext.define('Packt.store.security.Users', {
 	model: 'Packt.model.security.User', 
 
 	storeId: 'users',
-
+	//autoDestroy: true,
 	autoLoad: true,
 	
 	proxy: {
