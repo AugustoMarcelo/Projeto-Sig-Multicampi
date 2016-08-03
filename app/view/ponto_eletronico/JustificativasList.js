@@ -2,20 +2,38 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.justificativaslist',
 
-    store: 'ponto_eletronico.Justificativas',
+    //RECOMENDADO REFERENCIAR PELO ALIAS
+    // store: {
+    //     type: 'justificativas'
+    // },
+    //NÃO RECOMENDADO UTILIZAR storeId
+    store: 'justificativas',
     columnLines: true,
     initComponent: function() {
         var me = this;
-        var other = Ext.getStore('pontoeletronico');
-        
-        if(Ext.isString(me.store)) {
-			me.store = Ext.create('Packt.store.ponto_eletronico.Justificativas');
-		}
+        var other = Ext.getStore('pontoeletronico');                
 
-        if(other == undefined || other == null) {
+        //NÃO RECOMENDADO
+        if(Ext.isString(me.store)) {
+            me.store = Ext.create('Packt.store.ponto_eletronico.Justificativas');
+        }
+
+        if(other == undefined || other == null) {                                    
             other = Ext.create('Packt.store.ponto_eletronico.PontoEletronico');
-            other.load();            
-        } 
+            other.load({
+                params: {
+                    start: 0,
+                    limit: 100000
+                }                
+            });                        
+        } else {            
+            other.load({
+                params: {
+                    start: 0,
+                    limit: 100000
+                }
+            });            
+        }
         
         Ext.apply(me, {                     
             columns: {
@@ -25,51 +43,25 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                 //ESCREVENDO AS COLUNAS COMO ITENS PODE-SE DEFINIR UMA CONFIGURAÇÃO PADRÃO PARA TODOS OS ELEMENTOS
                 items: [
                     {
-                        text: 'Servidor',
-                        dataIndex: 'idPonto',                                                
-                        hidden: true,
-                        renderer: function (value, metaData, record) {                                                                                    
-                            var ponto = other.findRecord('id', value);
-                            var userStore = Ext.getStore('users');   
-
-                            if (ponto != null) {                                
-                                var user = userStore.findRecord('id', ponto.get('usuarioId'), 0, false, false, true);                                                               
-                                if (user != null) {
-                                    return user.get('name');
-                                } else {
-                                    return 'Carregando funcionário...';
-                                }    
-                            } else {                                                                
-                                return 'Carregando funcionário...';
-                            }
-                        }
+                        text: 'Servidor',                        
+                        dataIndex: 'nomeUsuario',                                                
+                        hidden: true                        
                     },
                     {      
                         xtype: 'datecolumn',
                         format: 'd/m/Y',              
-                        text: 'Ponto', 
-                        dataIndex: 'idPonto',
-                        //PARA QUE O RENDERER FUNCIONE, A STORE DEVE ESTAR PREVIAMENTE CARREGADA NA MEMÓRIA
-                        renderer: function(value, metaData, record) {                            
-                            var ponto = other.findRecord('id', value);                                                                     
-                                                                            
-                            if (ponto != null) {
-                                return Ext.Date.format(ponto.get('dataPonto'), 'd/m/Y');
-
-                            } else {
-                                return 'Carregando...';
-                            }
-                        }
+                        text: 'Ponto',                         
+                        dataIndex: 'dataPonto'                        
                     },
                     {
                         xtype: 'datecolumn', 
                         format: 'H:i:s', 
                         text: 'Entrada/1º Exp.', 
                         dataIndex: 'entrada01',                                                
-                        renderer: function (value, metaData, record) {
+                        renderer: function (value, metaData, record) {                                                                                                                
                             var ponto = other.findRecord('id', record.get('idPonto')),
                                 pontoFormat = Ext.Date.format(ponto.get('entrada01'), 'H:i:s'),
-                                valueFormat = Ext.Date.format(value, 'H:i:s');
+                                valueFormat = Ext.Date.format(value, 'H:i:s');                            
                             if (valueFormat != pontoFormat) {
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';
                             }
@@ -86,7 +78,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
 
                             if (value != ponto.get('saida01')) {                                                                
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';                                      
-                            }
+                            }                            
                             return value ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                         }
                     },
