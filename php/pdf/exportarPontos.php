@@ -24,8 +24,8 @@
 			$this->SetDrawColor(210, 210, 210);
 			$this->SetLineWidth(0.3);
 			$this->SetFont('', 'B');
-			//Header
-			$w = array(32, 70, 33, 33, 33, 33, 33);
+			//Header			
+			/*$w = array(32, 33, 33, 33, 33, 33);
 			$num_headers = count($header);
 			
 			for($i = 0; $i < $num_headers; ++$i) {
@@ -35,13 +35,26 @@
 			//Restaturação de cor e fonte
 			$this->SetFillColor(240, 240, 240);
 			$this->SetTextColor(0);
-			$this->SetFont('');
+			$this->SetFont('');*/
 			//Data
 			$fill = 0;			
 			$id = 0;
 			foreach ($data as $row) {
 				if($id == 0) {
 					$id = $row['id'];
+					$w = array(32, 33, 33, 33, 33, 33);
+					$num_headers = count($header);
+					$this->Cell(32, 7, 'Servidor', 1, 0, 'C', 1);					
+					$this->Cell(66, 7, $row['usuarioId'], 1, 0, 'C', 1);
+					$this->Ln();
+					for($i = 0; $i < $num_headers; ++$i) {
+						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
+					}
+					$this->Ln();
+					//Restaturação de cor e fonte
+					$this->SetFillColor(240, 240, 240);
+					$this->SetTextColor(0);
+					$this->SetFont('');
 				} else if($id != $row['id']) {
 					$this->Cell(array_sum($w), 0, '', 'T');
 					$this->AddPage();
@@ -52,9 +65,12 @@
 					$this->SetLineWidth(0.3);
 					$this->SetFont('', 'B');
 					//Header
-					$w = array(32, 70, 33, 33, 33, 33, 33);
+					//$w = array(32, 70, 33, 33, 33, 33, 33);
+					$w = array(32, 33, 33, 33, 33, 33);
 					$num_headers = count($header);
-					
+					$this->Cell(32, 7, 'Servidor', 1, 0, 'C', 1);					
+					$this->Cell(66, 7, $row['usuarioId'], 1, 0, 'C', 1);
+					$this->Ln();
 					for($i = 0; $i < $num_headers; ++$i) {
 						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
 					}
@@ -79,12 +95,12 @@
 				*/
 								
 				$this->Cell($w[0], 6, $row['dataPonto'], 'LR', 0, 'C', $fill);				
-				$this->Cell($w[1], 6, $row['usuarioId'], 'LR', 0, 'C', $fill);
-				$this->Cell($w[2], 6, $row['entrada01'], 'LR', 0, 'C', $fill);
-				$this->Cell($w[3], 6, $row['saida01'], 'LR', 0, 'C', $fill);				
-				$this->Cell($w[4], 6, $row['entrada02'], 'LR', 0, 'C', $fill);
-				$this->Cell($w[5], 6, $row['saida02'], 'LR', 0, 'C', $fill);				
-				$this->Cell($w[6], 6, $row['totaldia'], 'LR', 0, 'C', $fill);
+				//$this->Cell($w[1], 6, $row['usuarioId'], 'LR', 0, 'C', $fill);
+				$this->Cell($w[1], 6, $row['entrada01'], 'LR', 0, 'C', $fill);
+				$this->Cell($w[2], 6, $row['saida01'], 'LR', 0, 'C', $fill);				
+				$this->Cell($w[3], 6, $row['entrada02'], 'LR', 0, 'C', $fill);
+				$this->Cell($w[4], 6, $row['saida02'], 'LR', 0, 'C', $fill);				
+				$this->Cell($w[5], 6, $row['totaldia'], 'LR', 0, 'C', $fill);
 				$this->Ln(); //Executa uma quebra de linha
 				$fill=!$fill; //Variável que informa se uma linha será transparente (FALSE) ou pintada (TRUE)												
 			}
@@ -207,7 +223,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 	$pdf->AddPage();
 
 	//Título das colunas
-	$header = array("Data", "Servidor", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia");
+	$header = array("Data", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia");
 	$pdf->ColoredTable($header, $result);
 	
 	$pdf->AddPage();
