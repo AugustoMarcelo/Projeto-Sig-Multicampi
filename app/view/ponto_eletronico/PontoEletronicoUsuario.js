@@ -294,8 +294,7 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
             xtype: 'grid',
             title: 'Últimos 5 pontos',
             itemId: 'grid_pontos',
-            padding: '5 0 0 0',
-            //store: 'ponto_eletronico.PontoEletronico',                          
+            padding: '5 0 0 0',                                      
             store: {
                 type: 'pontoeletronico',
                 remoteFilter: true,
@@ -313,10 +312,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                     dataIndex: 'entrada01', 
                     width: '19%', 
                     align: 'center',
-                    renderer: function(value, metaData, record) {
-                        var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-                        var ponto = pontoEletronicoStore.findRecord('entrada01', value);
-                        return ponto != null ? Ext.Date.format(ponto.get('entrada01'), 'H:i:s') : '--:--:--';
+                    renderer: function(value, metaData, record) {                        
+                        return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                     }
                 },
                 {
@@ -326,10 +323,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                     dataIndex: 'saida01', 
                     width: '19%', 
                     align: 'center',
-                    renderer: function(value, metaData, record) {
-                        var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-                        var ponto = pontoEletronicoStore.findRecord('saida01', value);
-                        return ponto != null ? Ext.Date.format(ponto.get('saida01'), 'H:i:s') : '--:--:--';
+                    renderer: function(value, metaData, record) {                        
+                        return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                     }
                 },
                 {
@@ -339,10 +334,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                     dataIndex: 'entrada02', 
                     width: '19%', 
                     align: 'center',
-                    renderer: function(value, metaData, record) {
-                        var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-                        var ponto = pontoEletronicoStore.findRecord('entrada02', value);
-                        return ponto != null ? Ext.Date.format(ponto.get('entrada02'), 'H:i:s') : '--:--:--';
+                    renderer: function(value, metaData, record) {                        
+                        return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                     }
                 },
                 {
@@ -352,10 +345,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                     dataIndex: 'saida02', 
                     width: '19%', 
                     align: 'center',
-                    renderer: function(value, metaData, record) {
-                        var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-                        var ponto = pontoEletronicoStore.findRecord('saida02', value);
-                        return ponto != null ? Ext.Date.format(ponto.get('saida02'), 'H:i:s') : '--:--:--';
+                    renderer: function(value, metaData, record) {                        
+                        return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                     }
                 },
                 {
@@ -365,10 +356,8 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                     dataIndex: 'totaldia',
                     width: '10%',
                     align: 'center',
-                    renderer: function(value, metaData, record) {
-                        var pontoEletronicoStore = Ext.getStore('pontoeletronico');
-                        var ponto = pontoEletronicoStore.findRecord('totaldia', value);
-                        return ponto != null ? Ext.Date.format(ponto.get('totaldia'), 'H:i:s') : '--:--:--';
+                    renderer: function(value, metaData, record) {                        
+                        return value != null ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
                     }
                 }
             ],
@@ -430,31 +419,3 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
         }        
     ]
 });
-
-
-/*Ext.onReady(function(){	
-	var panel = Ext.create('Ext.panel.Panel', {
-		renderTo: Ext.getBody(),
-		dockedItems: [{
-			xtype: 'toolbar',
-			itemId: 'tbar',
-	        dock: 'bottom',
-	        items: [{
-	        	itemId: 'relogio'
-	        }]
-		}]
-	})
-	var relogio = {
-	    run: function(){
-	    	var data = Ext.Date.format(new Date(), 'd/m/Y H:i:s');
-            var panelRelogio = Ext.ComponentQuery.query('#panelRelogio')[0];
-            
-	        panel.getDockedComponent('tbar').child('#relogio').setText(data);            
-            panelRelogio.body.dom.innerText = data;
-	    },
-	    interval: 1000 //atualizando a cada 1 segundo
-	}
-	
-	var execucaoRelogio = Ext.create('Ext.util.TaskRunner');
-	execucaoRelogio.start(relogio); 
-});*/
