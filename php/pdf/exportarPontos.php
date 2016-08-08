@@ -18,94 +18,113 @@
 		}
 				
 		//Tabela colorida
-		public function ColoredTable($header, $data) {			
-			$this->SetFillColor(71, 71, 71);
-			$this->SetTextColor(255);
-			$this->SetDrawColor(210, 210, 210);
-			$this->SetLineWidth(0.3);
-			$this->SetFont('', 'B');
-			//Header			
-			/*$w = array(32, 33, 33, 33, 33, 33);
-			$num_headers = count($header);
-			
-			for($i = 0; $i < $num_headers; ++$i) {
-				$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
-			}
-			$this->Ln();
-			//Restaturação de cor e fonte
-			$this->SetFillColor(240, 240, 240);
-			$this->SetTextColor(0);
-			$this->SetFont('');*/
-			//Data
+		public function ColoredTable($header, $data) {
+			// VARIÁVEL QUE DEFINE SE A CÉLULA SERÁ PINTADA OU TRANSPARENTE			
 			$fill = 0;			
+			// ID DO USUÁRIO			
 			$id = 0;
-			foreach ($data as $row) {
-				if($id == 0) {
-					$id = $row['id'];
-					$w = array(32, 33, 33, 33, 33, 33);
-					$num_headers = count($header);
-					$this->Cell(32, 7, 'Servidor', 1, 0, 'C', 1);					
-					$this->Cell(66, 7, $row['usuarioId'], 1, 0, 'C', 1);
-					$this->Ln();
-					for($i = 0; $i < $num_headers; ++$i) {
-						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
-					}
-					$this->Ln();
-					//Restaturação de cor e fonte
-					$this->SetFillColor(240, 240, 240);
-					$this->SetTextColor(0);
-					$this->SetFont('');
-				} else if($id != $row['id']) {
-					$this->Cell(array_sum($w), 0, '', 'T');
-					$this->AddPage();
-					$id = $row['id'];
-					$this->SetFillColor(71, 71, 71);
-					$this->SetTextColor(255);
-					$this->SetDrawColor(210, 210, 210);
-					$this->SetLineWidth(0.3);
-					$this->SetFont('', 'B');
-					//Header
-					//$w = array(32, 70, 33, 33, 33, 33, 33);
-					$w = array(32, 33, 33, 33, 33, 33);
-					$num_headers = count($header);
-					$this->Cell(32, 7, 'Servidor', 1, 0, 'C', 1);					
-					$this->Cell(66, 7, $row['usuarioId'], 1, 0, 'C', 1);
-					$this->Ln();
-					for($i = 0; $i < $num_headers; ++$i) {
-						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
-					}
-					$this->Ln();
-					//Restaturação de cor e fonte
-					$this->SetFillColor(240, 240, 240);
-					$this->SetTextColor(0);
-					$this->SetFont('');
-					//Data
-					$fill = 0;							
-				}
-				/*
-					@params
-					{
-						cell width, 
-						cell height, 
-						string a ser mostrada, 
-						string com caracteres que representam a borda (Left, Right, Top, Bottom),
-						
-						String que representa o alinhamento do texto (Left, Right, Center, Justify) 
-					}
+			foreach($data as $row) {
+				/* 
+					CONFIGURAÇÕES INICIAIS VÁLIDAS PARA O PRIMEIRO USUÁRIO
+					E PARA MOSTRAR OS DADOS DE OUTRO USUÁRIO		
 				*/
-								
+				if($id == 0 || $id != $row['id']) {
+					/* SE O ID FOR DIFERENTE DE 0, CRIA-SE UMA NOVA PÁGINA */
+					if($id != 0) {
+						$this->Cell(array_sum($w), 0, '', 'T');
+						$this->AddPage();
+					}
+
+					/* DEFININDO AS PROPRIEDADES DE COR, FONTE E BORDAS PARA O CABEÇALHO */
+					// DEFININDO A COR DE PREENCHIMENTO DA CÉLULA			
+					$this->SetFillColor(71, 71, 71);
+
+					// DEFININDO A COR DA FONTE
+					$this->SetTextColor(255);
+
+					// DEFININDO A COR DAS BORDAS, RETÂNGULOS E DESENHOS
+					$this->SetDrawColor(210, 210, 210);
+
+					// DEFININDO A LARGURA DAS LINHAS
+					$this->SetLineWidth(0.3);
+
+					// DEFININDO A FONTE
+					$this->SetFont('', 'B');
+
+					// DEFININDO OS TAMANHOS DAS CÉLULAS DOS HORÁRIOS
+					$w = array(44, 45, 45, 45, 45, 43);
+
+					// CONTABILIZANDO O NÚMERO DE CÉLULAS
+					$num_headers = count($header);
+
+					// DESENHANDO A CÉLULA LABEL 'Servidor'
+					$this->Cell(44, 7, 'Servidor', 1, 0, 'C', 1);
+
+					/* ALTERANDO AS PROPRIEDADES DE COR E FONTE PARA DESTACAR O NOME DO USUÁRIO */
+					// ALTERANDO A COR DE PREENCHIMENTO DA CÉLULA
+					$this->SetFillColor(240, 240, 240);
+
+					// ALTERANDO A COR DO TEXTO
+					$this->SetTextColor(0);
+
+					// ALTERANDO A FONTE
+					$this->SetFont('');
+
+					// DESENHANDO A CÉLULA COM O NOME DO USUÁRIO
+					$this->Cell(90, 7, $row['usuarioId'], 1, 0, 'C', 1);
+
+					// QUEBRA DE LINHA
+					$this->Ln();
+
+					/* ALTERANDO AS PROPRIEDADES DE COR E FONTE PARA MOSTRAR O CABEÇALHO DOS HORÁRIOS */
+					// ALTERANDO A COR DE PREENCHIMENTO DA CÉLULA
+					$this->SetFillColor(71, 71, 71);
+
+					// ALTERANDO A COR DA FONTE
+					$this->SetTextColor(255);
+					
+					// ALTERANDO A FONTE
+					$this->SetFont('', 'B');	
+
+					// CABEÇALHOS DA TABELA DE INFORMAÇÕES
+					for($i = 0; $i < $num_headers; $i++) {
+						/*
+							@Params
+							$w[$i] 			=> Largura da célula
+							7 				=> Altura da Célula
+							$header[$i] 	=> Texto da célula
+							1 				=> 
+							0 				=>
+							'C' 			=> Alinhamento da célula
+						*/
+						$this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
+					}
+					// QUEBRA DE LINHA
+					$this->Ln();							
+				}				
+				
+				/* RESTAURAR COR E FONTE PARA DESENHAR AS CÉLULAS COM OS DADOS */
+				// ALTERAR A COR DE PREENCHIMENTO DA CÉLULA
+				$this->SetFillColor(240, 240, 240);
+				
+				// ALTERAR A COR DA FONTE
+				$this->SetTextColor(0);
+
+				// ALTERAR A FONTE
+				$this->SetFont('');
+
+				// CRIAR AS CÉLULAS E INSERIR OS DADOS
 				$this->Cell($w[0], 6, $row['dataPonto'], 'LR', 0, 'C', $fill);				
-				//$this->Cell($w[1], 6, $row['usuarioId'], 'LR', 0, 'C', $fill);
 				$this->Cell($w[1], 6, $row['entrada01'], 'LR', 0, 'C', $fill);
 				$this->Cell($w[2], 6, $row['saida01'], 'LR', 0, 'C', $fill);				
 				$this->Cell($w[3], 6, $row['entrada02'], 'LR', 0, 'C', $fill);
 				$this->Cell($w[4], 6, $row['saida02'], 'LR', 0, 'C', $fill);				
 				$this->Cell($w[5], 6, $row['totaldia'], 'LR', 0, 'C', $fill);
-				$this->Ln(); //Executa uma quebra de linha
-				$fill=!$fill; //Variável que informa se uma linha será transparente (FALSE) ou pintada (TRUE)												
+				$this->Ln();
+				$fill=!$fill;
+				$id = $row['id'];				
 			}
-			$this->Cell(array_sum($w), 0, '', 'T');	
-			//$this->Cell(32, 0, 'Teste', 'B');		
+			$this->Cell(array_sum($w), 0, '', 'T');						
 		} 
 		/* 
 			@Override
@@ -223,7 +242,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 	$pdf->AddPage();
 
 	//Título das colunas
-	$header = array("Data", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia");
+	$header = array("Data", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia");	
 	$pdf->ColoredTable($header, $result);
 	
 	$pdf->AddPage();
