@@ -1,8 +1,8 @@
 <?php
 	require_once('../tcpdf/config/lang/bra.php');
 	require_once('../tcpdf/tcpdf.php');
-	require_once('../db/db.php');
-	
+	require_once('../db/db.php');		
+
 	//Extendendo TCPDF com funções customizadas
 	class MYPDF extends TCPDF {
 
@@ -29,6 +29,8 @@
 					E PARA MOSTRAR OS DADOS DE OUTRO USUÁRIO		
 				*/
 				if($id == 0 || $id != $row['id']) {
+					// A PRIMEIRA LINHA SEMPRE TERÁ O PREENCHIMENTO TRANSPARENTE
+					$fill = 0;
 					/* SE O ID FOR DIFERENTE DE 0, CRIA-SE UMA NOVA PÁGINA */
 					if($id != 0) {
 						$this->Cell(array_sum($w), 0, '', 'T');
@@ -52,13 +54,14 @@
 					$this->SetFont('', 'B');
 
 					// DEFININDO OS TAMANHOS DAS CÉLULAS DOS HORÁRIOS
-					$w = array(44, 45, 45, 45, 45, 43);
+					//$w = array(44, 45, 45, 45, 45, 43);
+					$w = array(40, 40, 40, 40, 40, 40, 27);
 
 					// CONTABILIZANDO O NÚMERO DE CÉLULAS
 					$num_headers = count($header);
 
 					// DESENHANDO A CÉLULA LABEL 'Servidor'
-					$this->Cell(44, 7, 'Servidor', 1, 0, 'C', 1);
+					$this->Cell(40, 7, 'Servidor', 1, 0, 'C', 1);
 
 					/* ALTERANDO AS PROPRIEDADES DE COR E FONTE PARA DESTACAR O NOME DO USUÁRIO */
 					// ALTERANDO A COR DE PREENCHIMENTO DA CÉLULA
@@ -71,7 +74,7 @@
 					$this->SetFont('');
 
 					// DESENHANDO A CÉLULA COM O NOME DO USUÁRIO
-					$this->Cell(90, 7, $row['usuarioId'], 1, 0, 'C', 1);
+					$this->Cell(80, 7, $row['usuarioId'], 1, 0, 'C', 1);
 
 					// QUEBRA DE LINHA
 					$this->Ln();
@@ -120,6 +123,7 @@
 				$this->Cell($w[3], 6, $row['entrada02'], 'LR', 0, 'C', $fill);
 				$this->Cell($w[4], 6, $row['saida02'], 'LR', 0, 'C', $fill);				
 				$this->Cell($w[5], 6, $row['totaldia'], 'LR', 0, 'C', $fill);
+				$this->Cell($w[6], 6, $row['justificado'], 'LR', 0, 'C', $fill);
 				$this->Ln();
 				$fill=!$fill;
 				$id = $row['id'];				
@@ -176,7 +180,16 @@
 		}
 	}	
 
-	$sqlParte1 = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, if(p.entrada01 IS NULL, '--:--:--', p.entrada01) AS entrada01, if(p.saida01 IS NULL, '--:--:--', p.saida01) AS saida01, if(p.entrada02 IS NULL, '--:--:--', p.entrada02) AS entrada02, if(p.saida02 IS NULL, '--:--:--', p.saida02) AS saida02, if(p.totaldia IS NULL, '--:--:--', p.totaldia) AS totaldia, u.name AS usuarioId, p.usuarioId AS id";
+	$sqlParte1 = "SELECT 
+					DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, 
+					IF(p.entrada01 IS NULL, '--:--:--', p.entrada01) AS entrada01, 
+					IF(p.saida01 IS NULL, '--:--:--', p.saida01) AS saida01, 
+					IF(p.entrada02 IS NULL, '--:--:--', p.entrada02) AS entrada02, 
+					IF(p.saida02 IS NULL, '--:--:--', p.saida02) AS saida02, 
+					IF(p.totaldia IS NULL, '--:--:--', p.totaldia) AS totaldia, 
+					u.name AS usuarioId, 
+					p.usuarioId AS id, 
+					IF(p.id IN(SELECT idPonto FROM Justificativa), 'SIM', '—') AS justificado";
 	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY usuarioId, p.id DESC";
 	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
 	$textoHorasTrabalhadas = "Servidores e horas totais de trabalho desde o início";
@@ -196,7 +209,19 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 		}
 	}
 
-	$result = array();
+	$sqlJustificativas = "SELECT 
+							DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto,
+							u.name AS servidor,
+							j.justificativa AS justificativa
+						  FROM 
+						  	Pontospordia p,
+							User u,
+							Justificativa j
+						  WHERE 
+						  	p.usuarioId = u.id AND p.id = j.idPonto
+						  GROUP BY dataPonto ASC";
+
+	$result = array();	
 	if($resultdb = $mysqli->query($sqlCompleta)) {
 		while($record = $resultdb->fetch_assoc()) {
 			array_push($result, $record); //Adicionando elementos no final do array			
@@ -205,10 +230,18 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 	}
 	
 	
-	$resultTotalHoras = array();
+	$resultTotalHoras = array();	
 	if($resultdb = $mysqli->query($sqlHorasTrabalhadas)) {
 		while($record = $resultdb->fetch_assoc()) {
 			array_push($resultTotalHoras, $record); //Adicionando elementos no final do array			
+		}
+		$resultdb->close();
+	}
+
+	$resultJustificativas = array();
+	if($resultdb = $mysqli->query($sqlJustificativas)) {
+		while($record = $resultdb->fetch_assoc()) {
+			array_push($resultJustificativas, $record); //Adicionando elementos no final do array			
 		}
 		$resultdb->close();
 	}
@@ -238,32 +271,81 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 
 	$pdf->SetFont('helvetica', '', 10);
 	
-	//Adicionar uma página
+	// NOVA PÁGINA
 	$pdf->AddPage();
 
-	//Título das colunas
-	$header = array("Data", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia");	
+	//CABEÇALHO DAS COLUNAS COM OS HORÁRIOS
+	$header = array("Data", "Entrada/1º Exp.", "Saída/1º Exp.", "Entrada/2º Exp.", "Saída/2º Exp.", "Total/Dia", "Justificado");	
 	$pdf->ColoredTable($header, $result);
 	
+	// NOVA PÁGINA
 	$pdf->AddPage();
-
+	// TÍTULO DA PÁGINA COM AS HORAS TRABALHADAS
 	$pdf->Cell(250, 0, $textoHorasTrabalhadas, 0, 1, 'C');
+	// QUEBRA DE LINHA
 	$pdf->Ln();
-	
+	// PROPRIEDADES DE FORMATAÇÃO DE TEXTO, FONTE E BORDAS
 	$pdf->SetFillColor(71, 71, 71);
 	$pdf->SetTextColor(255);
 	$pdf->SetDrawColor(210, 210, 210);
+	// CÁLULAS CABEÇALHO
 	$pdf->Cell(60, 7, 'Servidores', 1, 0, 'C', 1);
 	$pdf->Cell(40, 7, 'Total de horas mensal', 1, 0, 'C', 1);
+	// QUEBRA DE LINHA
 	$pdf->Ln();
+	// PROPRIEDADES DE FORMATAÇÃO DE TEXTO, FONTE E BORDAS
 	$pdf->SetFillColor(240, 240, 240);
 	$pdf->SetTextColor(0);
 	$fill = 0;
+	// PERCORRENDO OS DADOS ADVINDOS DO BANCO E MOSTRANDO NAS CELULAS
 	foreach ($resultTotalHoras as $row) {
 		$pdf->Cell(60, 0, $row['usuario'], 'LRTB', 0, 'L', $fill);
 		$pdf->Cell(40, 0, $row['totalhoras'], 'LRTB', 0, 'C', $fill);
 		$fill = !$fill;
 		$pdf->Ln();
+	}
+
+	// NOVA PÁGINA
+	$pdf->AddPage();
+	// TÍTULO DA PÁGINA
+	$pdf->Cell(250, 0, "Justificativas dos servidores", 0, 1, 'C');
+	$pdf->Ln();	
+	foreach($resultJustificativas as $row) {
+		$pdf->SetFont('', 'B');
+		$pdf->SetFillColor(71, 71, 71);
+		$pdf->SetTextColor(255);
+		$pdf->SetDrawColor(210, 210, 210);						
+		$pdf->Cell(30, 7, "Servidor", 'LRTB', 0, 'L', 1);
+
+		$pdf->SetFont('');
+		$pdf->SetFillColor(240, 240, 240);
+		$pdf->SetTextColor(0);
+		$pdf->Cell(60, 7, $row['servidor'], 'LRTB', 0, 'L');
+		$pdf->Ln();
+
+		$pdf->SetFont('', 'B');
+		$pdf->SetFillColor(71, 71, 71);
+		$pdf->SetTextColor(255);		
+		$pdf->Cell(30, 7, "Data do ponto", 'LRTB', 0, 'L', 1);
+
+		$pdf->SetFont('');
+		$pdf->SetFillColor(240, 240, 240);
+		$pdf->SetTextColor(0);
+		$pdf->Cell(60, 7, $row['dataPonto'], 'LRTB', 0, 'L');
+		$pdf->Ln();
+
+		$pdf->SetFont('', 'B');
+		$pdf->SetFillColor(71, 71, 71);
+		$pdf->SetTextColor(255);		
+		$pdf->Cell(267, 7, "Justificativa", 'LRTB', 0, 'C', 1);
+
+		$pdf->SetFont('');
+		$pdf->SetFillColor(240, 240, 240);
+		$pdf->SetTextColor(0);
+		$pdf->Ln();
+		$pdf->Cell(267, 40, $row['justificativa'], 'LRTB', 0, 'L', 0, $link=0, $stretch=0, $ignore=false, $calign='T', $valign='T');
+		$pdf->Ln();
+		$pdf->Ln(7);
 	}
 	$pdf->Output('PontosRegistrados.pdf', 'I');
 ?>
