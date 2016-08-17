@@ -159,7 +159,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				if (result.ponto != null) {
 					if (result.justificativa == null) {
 						var fieldset = field.up('form').getComponent('fieldset_horarios');
-						field.up('form').down('hiddenfield#idPonto').setValue(result.ponto.id);
+						field.up('form').down('hiddenfield#idPonto').setValue(result.ponto.id);												
 						fieldset.query('textfield#entradaExp1')[0].setValue(result.ponto.entrada01);
 						fieldset.query('textfield#entradaExp1')[0].originalValue = result.ponto.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
 						fieldset.query('textfield#saidaExp1')[0].setValue(result.ponto.saida01);
