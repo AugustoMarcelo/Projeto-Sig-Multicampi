@@ -37,22 +37,22 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
         });
     },
 
-    onEditJustificativa: function (button, e, options) {        
+    onEditJustificativa: function (button, e, options) {
         var grid = button.up('panel').down('grid');
         var record = grid.getSelectionModel().getSelection();
         if (record[0]) {
             var form = this.getJustificaPontoForm();
             var fieldset = form.down('form').getComponent('fieldset_horarios');
             var fs_datefield = form.down('form').getComponent('fieldContainer_date');
-            form.setTitle('Editando...');
-            form.down('form').loadRecord(record[0]);            
-            fs_datefield.query('datefield[name=dataPonto]')[0].setValue(record[0].raw.dataPonto);            
-            fieldset.query('textfield#entradaExp1')[0].setValue(record[0].raw.entrada01);            			
-            fieldset.query('textfield#saidaExp1')[0].setValue(record[0].raw.saida01);            
-            fieldset.query('textfield#entradaExp2')[0].setValue(record[0].raw.entrada02);            
-            fieldset.query('textfield#saidaExp2')[0].setValue(record[0].raw.saida02);            
-            for (var i = 0; i < fieldset.query('textfield').length; i++) {                
-                if(fieldset.query('textfield')[i].getValue() != "") {
+            form.setTitle('Editando ponto de ' + Ext.Date.format(record[0].get('dataPonto'), 'd/m/Y'));
+            form.down('form').loadRecord(record[0]);
+            fs_datefield.query('datefield[name=dataPonto]')[0].setValue(record[0].raw.dataPonto);
+            fieldset.query('textfield#entradaExp1')[0].setValue(record[0].raw.entrada01);
+            fieldset.query('textfield#saidaExp1')[0].setValue(record[0].raw.saida01);
+            fieldset.query('textfield#entradaExp2')[0].setValue(record[0].raw.entrada02);
+            fieldset.query('textfield#saidaExp2')[0].setValue(record[0].raw.saida02);
+            for (var i = 0; i < fieldset.query('textfield').length; i++) {
+                if (fieldset.query('textfield')[i].getValue() != "") {
                     fieldset.query('checkbox')[i].setValue(true);
                 }
             }
@@ -62,15 +62,21 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
     onHabilitarBotoes: function (model, selected, options) {
         var grid = this.getJustificativas();
         var btnEdit = grid.down('#edit');
-        if (selected[0]) {
-            if (btnEdit.isDisabled()) {
-                btnEdit.setDisabled(false);
+        Ext.Ajax.request({
+            url: 'php/security/importUserSession.php',
+            success: function (conn, response, options, e0pts) {
+                var result = Packt.util.Util.decodeJSON(conn.responseText);                                
+                if (selected[0] && (result.user_id == selected[0].get('id_usuario'))) {
+                    if (btnEdit.isDisabled()) {
+                        btnEdit.setDisabled(false);
+                    }
+                } else {
+                    if (!btnEdit.isDisabled()) {
+                        btnEdit.setDisabled(true);
+                    }
+                }
             }
-        } else {
-            if (!btnEdit.isDisabled()) {
-                btnEdit.setDisabled(true);
-            }
-        }
+        });
     },
 
     onRightClickRow: function (view, record, item, index, e, eOpts) {
@@ -82,7 +88,8 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
                     iconCls: 'verJustificativa',
                     handler: function () {
                         Ext.create('Ext.window.Window', {
-                            title: 'Justificativa',
+                            //title: 'Justificativa',
+                            title: record.get('nomeUsuario') + ' - ' + Ext.Date.format(record.get('dataPonto'), 'd/m/Y'),
                             modal: true,
                             autoShow: true,
                             height: 200,
@@ -116,8 +123,8 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
             success: function (conn, response, options, e0pts) {
                 var result = Packt.util.Util.decodeJSON(conn.responseText);
                 if (result.level < 3) {
-                    for (var i = 0; i < component.columns.length; i++) {                        
-                        component.columns[i].setVisible(true);                        
+                    for (var i = 0; i < component.columns.length; i++) {
+                        component.columns[i].setVisible(true);
                     }
                 }
             }
