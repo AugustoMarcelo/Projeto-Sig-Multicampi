@@ -219,7 +219,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 							Justificativa j
 						  WHERE 
 						  	p.usuarioId = u.id AND p.id = j.idPonto
-						  GROUP BY dataPonto ASC";
+						  ORDER BY p.dataPonto DESC";
 
 	$result = array();	
 	if($resultdb = $mysqli->query($sqlCompleta)) {
