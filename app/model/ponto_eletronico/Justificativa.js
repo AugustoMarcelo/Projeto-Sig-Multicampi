@@ -6,6 +6,7 @@ Ext.define('Packt.model.ponto_eletronico.Justificativa', {
     fields: [
         {name: 'id', type: 'integer'},                                              //ATRIBUTO IDENTIFICADOR DA JUSTIFICATIVA
         {name: 'nomeUsuario', type: 'string', persist: false},                      //ATRIBUTO UTILIZADO SOMENTE PARA MOSTRAR O NOME DO USUÁRIO NO GRID; NÃO SERÁ PERSISTIDO NO BANCO
+        {name: 'id_usuario', type: 'integer', persist: false},                      //ID DO USUÁRIO UTILIZADO PARA COMPARAR OS DADOS COM O USUÁRIO LOGADO ATUALMENTE
         {name: 'dataPonto', type: 'date', dateFormat: 'Y-m-d', persist: false},     //ATRIBUTO UTILIZADO SOMENTE PARA MOSTRAR A DATA DO PONTO NO GRID; NÃO SERÁ PERSISTIDO NO BANCO
         {name: 'idPonto', type: 'integer'},                                         //ATRIBUTO REFERÊNCIA DO PONTO A SER JUSTIFICADO
         {name: 'justificativa', type: 'string'},                                    //JUSTIFICATIVA DO PONTO
