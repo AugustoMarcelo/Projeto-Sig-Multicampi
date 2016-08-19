@@ -193,22 +193,6 @@
 	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY usuarioId, p.id DESC";
 	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
 	$textoHorasTrabalhadas = "Servidores e horas totais de trabalho desde o início";
-	if(isset($_GET["valorDoFiltro"]) && $_GET["valorDoFiltro"] != null && $_GET["valorDoFiltro"] != "") {
-		$filtro = $_GET["valorDoFiltro"];
-		
-		if(isset($_GET['check']) && $_GET['check'] == 'true' ) {	
-								
-			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuarioId, p.id DESC";
-			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuario ASC, usuarioId;";
-			$textoHorasTrabalhadas = "Servidores e horas totais de ".  date('m', strtotime($filtro))."/".date('Y', strtotime($filtro));
-		} else {	
-			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuarioId, p.id DESC";
-			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
-FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuario ASC, usuarioId;";
-			$textoHorasTrabalhadas = "Servidores e horas totais de ".date('d/m/Y', strtotime($filtro));
-		}
-	}
-
 	$sqlJustificativas = "SELECT 
 							DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto,
 							u.name AS servidor,
@@ -220,6 +204,23 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 						  WHERE 
 						  	p.usuarioId = u.id AND p.id = j.idPonto
 						  ORDER BY p.dataPonto DESC";
+	if(isset($_GET["valorDoFiltro"]) && $_GET["valorDoFiltro"] != null && $_GET["valorDoFiltro"] != "") {
+		$filtro = $_GET["valorDoFiltro"];
+		
+		if(isset($_GET['check']) && $_GET['check'] == 'true' ) {	
+								
+			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuarioId, p.id DESC";
+			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' GROUP BY usuario ASC, usuarioId;";
+			$textoHorasTrabalhadas = "Servidores e horas totais de ".  date('m', strtotime($filtro))."/".date('Y', strtotime($filtro));
+			$sqlJustificativas = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, u.name AS servidor, j.justificativa AS justificativa FROM Pontospordia p, User u, Justificativa j WHERE p.usuarioId = u.id AND p.id = j.idPonto AND DATE_FORMAT(p.dataPonto, '%Y-%m') = '$filtro' ORDER BY p.dataPonto DESC";
+		} else {	
+			$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuarioId, p.id DESC";
+			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
+FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuario ASC, usuarioId;";
+			$textoHorasTrabalhadas = "Servidores e horas totais de ".date('d/m/Y', strtotime($filtro));
+			$sqlJustificativas = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, u.name AS servidor, j.justificativa AS justificativa FROM Pontospordia p, User u, Justificativa j WHERE p.usuarioId = u.id AND p.id = j.idPonto AND p.dataPonto = '$filtro' ORDER BY p.dataPonto DESC";
+		}
+	}	
 
 	$result = array();	
 	if($resultdb = $mysqli->query($sqlCompleta)) {
