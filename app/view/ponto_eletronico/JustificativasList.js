@@ -75,11 +75,17 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         dataIndex: 'saida01',                                                
                         renderer: function (value, metaData, record) {
                             var ponto = other.findRecord('id', record.get('idPonto'));
-
-                            if (value != ponto.get('saida01')) {                                                                
+                            
+                            if ((value != ponto.get('saida01')) && (value != null)) {                                                                
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';                                      
-                            }                            
-                            return value ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
+                            }
+                            if(value) {
+                                return Ext.Date.format(value, 'H:i:s');
+                            } else if(ponto.get('saida01')) {
+                                return Ext.Date.format(ponto.get('saida01'), 'H:i:s');
+                            } else {                            
+                                return '--:--:--';
+                            }
                         }
                     },
                     {
