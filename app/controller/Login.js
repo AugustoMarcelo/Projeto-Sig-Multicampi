@@ -181,6 +181,12 @@ Ext.define('Packt.controller.Login', {
 								}
 							}
 						});
+					} else {
+						Ext.Msg.show({
+							title: 'Erro',
+							msg: 'O campo está em branco!',
+							buttons: Ext.Msg.OK
+						});
 					}
 				}
 			}
