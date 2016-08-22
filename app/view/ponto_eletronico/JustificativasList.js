@@ -65,7 +65,14 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                             if (valueFormat != pontoFormat) {
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';
                             }
-                            return value ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
+
+                            if(value) {
+                                return Ext.Date.format(value, 'H:i:s');
+                            } else if(ponto.get('entrada01')) {
+                                return Ext.Date.format(ponto.get('entrada01', 'H:i:s'));
+                            } else {
+                                return '--:--:--';
+                            }                            
                         }
                     },
                     {
@@ -96,10 +103,16 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         renderer: function (value, metaData, record) {
                             var ponto = other.findRecord('id', record.get('idPonto'));
 
-                            if (value != ponto.get('entrada02')) {                                
+                            if ((value != ponto.get('entrada02')) && (value != null)) {                                
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';                                                                                                                                                                          
                             }
-                            return value ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
+                            if(value) {
+                                return Ext.Date.format(value, 'H:i:s');
+                            } else if(ponto.get('entrada02')) {
+                                return Ext.Date.format(ponto.get('entrada02', 'H:i:s'));
+                            } else {
+                                return '--:--:--';
+                            }
                         }
                     },
                     {
@@ -110,10 +123,16 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         renderer: function (value, metaData, record) {     
                             var ponto = other.findRecord('id', record.get('idPonto'));
 
-                            if (value != ponto.get('saida02')) {
+                            if ((value != ponto.get('saida02')) && (value != null)) {
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';
                             }                       
-                            return value ? Ext.Date.format(value, 'H:i:s') : '--:--:--';
+                            if(value) {
+                                return Ext.Date.format(value, 'H:i:s');
+                            } else if(ponto.get('saida02')) {
+                                return Ext.Date.format(ponto.get('saida02', 'H:i:s'));
+                            } else {
+                                return '--:--:--';
+                            }                            
                         }                        
                     },
                     {xtype: 'datecolumn', format: 'd/m/Y', text: 'Data (Justificativa)', dataIndex: 'dataJustificativa'}
