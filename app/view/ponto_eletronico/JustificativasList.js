@@ -58,19 +58,22 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                         format: 'H:i:s', 
                         text: 'Entrada/1º Exp.', 
                         dataIndex: 'entrada01',                                                
-                        renderer: function (value, metaData, record) {                                                                                                                
+                        renderer: function (value, metaData, record) {                                                                                                     
                             var ponto = other.findRecord('id', record.get('idPonto')),
                                 pontoFormat = Ext.Date.format(ponto.get('entrada01'), 'H:i:s'),
-                                valueFormat = Ext.Date.format(value, 'H:i:s');                            
-                            if (valueFormat != pontoFormat) {
+                                valueFormat = Ext.Date.format(value, 'H:i:s');                                                            
+                            if ((valueFormat != pontoFormat) && (value != null)) {                            
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';
+                            } else if(record.get('dia') == 1) {
+                                metaData.tdAttr = 'style="background-color:#BABABA;color:#000000;border-left:2px solid #000000;"';
+                                return 'FALTOU';
                             }
 
-                            if(value) {
-                                return Ext.Date.format(value, 'H:i:s');
-                            } else if(ponto.get('entrada01')) {
-                                return Ext.Date.format(ponto.get('entrada01', 'H:i:s'));
-                            } else {
+                            if(value) {                                                                                                
+                                return Ext.Date.format(value, 'H:i:s');                                
+                            } else if(ponto.get('entrada01')) {                                
+                                return Ext.Date.format(ponto.get('entrada01'), 'H:i:s');
+                            } else {                                
                                 return '--:--:--';
                             }                            
                         }
@@ -85,7 +88,11 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                             
                             if ((value != ponto.get('saida01')) && (value != null)) {                                                                
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';                                      
+                            } else if(record.get('dia') == 1) {
+                                metaData.tdAttr = 'style="background-color:#BABABA;color:#000000;"';
+                                return 'FALTOU';
                             }
+
                             if(value) {
                                 return Ext.Date.format(value, 'H:i:s');
                             } else if(ponto.get('saida01')) {
@@ -105,11 +112,15 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
 
                             if ((value != ponto.get('entrada02')) && (value != null)) {                                
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';                                                                                                                                                                          
+                            } else if(record.get('dia') == 1) {
+                                metaData.tdAttr = 'style="background-color:#BABABA;color:#000000;"';
+                                return 'FALTOU';
                             }
+
                             if(value) {
                                 return Ext.Date.format(value, 'H:i:s');
                             } else if(ponto.get('entrada02')) {
-                                return Ext.Date.format(ponto.get('entrada02', 'H:i:s'));
+                                return Ext.Date.format(ponto.get('entrada02'), 'H:i:s');
                             } else {
                                 return '--:--:--';
                             }
@@ -125,11 +136,15 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
 
                             if ((value != ponto.get('saida02')) && (value != null)) {
                                 metaData.tdAttr = 'style="background-color:#5DFF4F;color:#3300FF;border-left:2px solid #3300FF;"';
-                            }                       
+                            } else if(record.get('dia') == 1) {
+                                metaData.tdAttr = 'style="background-color:#BABABA;color:#000000;"';
+                                return 'FALTOU';
+                            } 
+
                             if(value) {
                                 return Ext.Date.format(value, 'H:i:s');
                             } else if(ponto.get('saida02')) {
-                                return Ext.Date.format(ponto.get('saida02', 'H:i:s'));
+                                return Ext.Date.format(ponto.get('saida02'), 'H:i:s');
                             } else {
                                 return '--:--:--';
                             }                            
