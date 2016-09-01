@@ -99,12 +99,11 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						if (resultado.success) {
 							if (resultado.novo) {
 								Packt.util.Alert.msg('Ponto eletrônico', 'Ponto Justificado com sucesso.');
-								button.up('window').close();
+								button.up('window').close();								
 							} else {
 								Packt.util.Alert.msg('Ponto eletrônico', 'Justificativa alterada com sucesso.');
 								button.up('window').close();
-							}
-							Ext.getStore('justificativas').load();
+							}							
 						}
 					},
 
@@ -199,8 +198,10 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	onChangeValue: function (thisComponent, newValue, oldValue, eOpts) {
 		var btnClearFilters = thisComponent.up('fieldcontainer').getComponent('btnClearFilters');
 		var fieldset = thisComponent.up('form').getComponent('fieldset_horarios');
-		btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
-		fieldset.setDisabled(thisComponent.getValue() != null ? false : true);
+		if(thisComponent.up('form').down('checkbox[name=checkDayFault]').getValue() != true) {
+			btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
+			fieldset.setDisabled(thisComponent.getValue() != null ? false : true);
+		}
 	},
 
 	onCorrigirPonto: function (button, options) {
