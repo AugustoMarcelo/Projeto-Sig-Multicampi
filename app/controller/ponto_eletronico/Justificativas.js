@@ -51,6 +51,7 @@ Ext.define('Packt.controller.ponto_eletronico.Justificativas', {
             fieldset.query('textfield#saidaExp1')[0].setValue(record[0].raw.saida01);
             fieldset.query('textfield#entradaExp2')[0].setValue(record[0].raw.entrada02);
             fieldset.query('textfield#saidaExp2')[0].setValue(record[0].raw.saida02);
+            form.down('checkbox[name=checkDayFault]').setValue(record[0].get('dia'));
             for (var i = 0; i < fieldset.query('textfield').length; i++) {
                 if (fieldset.query('textfield')[i].getValue() != "") {
                     fieldset.query('checkbox')[i].setValue(true);
