@@ -4,7 +4,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 	modal: true,
 	autoShow: true,
 	closable: false,
-	height: 370,
+	height: 400,
 	width: 390,
 	minHeight: 370,	
 	layout: {
@@ -40,7 +40,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 						{
 							xtype: 'datefield',
 							fieldLabel: 'Data do ponto',
-							name: 'dataPonto',							
+							name: 'dataPonto',
+							submitFormat: 'Y-m-d',							
 							alowBlank: false,							
 							labelWidth: 110,
 							width: 314,							
@@ -75,7 +76,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									disabled: true,
 									labelWidth: 110,
 									name: 'entrada01',
-									itemId: 'entradaExp1'
+									itemId: 'entradaExp1',
+									vtype: 'horario'
 								},
 								{
 									xtype: 'checkbox',
@@ -104,7 +106,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									disabled: true,
 									labelWidth: 110,
 									name: 'saida01',
-									itemId: 'saidaExp1'
+									itemId: 'saidaExp1',
+									vtype: 'horario'
 								},
 								{
 									xtype: 'checkbox',
@@ -133,7 +136,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									disabled: true,
 									labelWidth: 110,
 									name: 'entrada02',
-									itemId: 'entradaExp2'
+									itemId: 'entradaExp2',
+									vtype: 'horario'
 								},
 								{
 									xtype: 'checkbox',
@@ -162,7 +166,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 									disabled: true,
 									labelWidth: 110,
 									name: 'saida02',
-									itemId: 'saidaExp2'
+									itemId: 'saidaExp2',
+									vtype: 'horario'
 								},
 								{
 									xtype: 'checkbox',
@@ -179,6 +184,21 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							]
 						}
 					]
+				},
+				{
+					xtype: 'checkbox',
+					boxLabel: 'Marque caso você tenha faltado o dia inteiro',
+					name: 'checkDayFault',
+					boxLabelAlign: 'after', /* default */
+					listeners: {
+						change: function (thisComponent, oldValue, newValue, eOpts) {
+							if(thisComponent.getValue() == true) {
+								thisComponent.up('form').down('fieldset').setDisabled(true);
+							} else {
+								thisComponent.up('form').down('fieldset').setDisabled(false);
+							}
+						}
+					}
 				},
 				{
 					xtype: 'fieldset',
