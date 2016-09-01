@@ -396,7 +396,7 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                             itemId: 'corrigirPonto',
                             iconCls: 'corrigirHorarios',
                             tooltip: 'Corrige todos os pontos adicionando os cálculo de horas trabalhadas por dia',
-                            hidden: true,
+                            hidden: true/*,
                             listeners: {                                                
                                 beforerender: function(thisComponent, e0pts) {
                                     var me = this;
@@ -411,7 +411,7 @@ Ext.define('Packt.view.ponto_eletronico.PontoEletronicoUsuario', {
                                         }
                                     });
                                 }
-                            } 
+                            }*/ 
                         }
                     ]
                 }
