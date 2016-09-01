@@ -15,5 +15,6 @@ Ext.define('Packt.model.ponto_eletronico.Justificativa', {
         {name: 'saida01', type: 'date', dateFormat: 'H:i:s'},                       //ATRIBUTO IDENTIFICADOR DO HORÁRIO DE SAIDA NO 1º EXPEDIENTE
         {name: 'entrada02', type: 'date', dateFormat: 'H:i:s'},                     //ATRIBUTO IDENTIFICADOR DO HORÁRIO DE ENTRADA NO 2º EXPEDIENTE
         {name: 'saida02', type: 'date', dateFormat: 'H:i:s'},                       //ATRIBUTO IDENTIFICADOR DO HORÁRIO DE SAIDA NO 2º EXPEDIENTE
+        {name: 'dia', type: 'integer'}                                              //ATRIBUTO QUE REPRESENTA SE O USUÁRIO FALTOU A UM DIA INTEIRO
     ]   
 });
