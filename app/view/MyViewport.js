@@ -30,7 +30,7 @@ Ext.define('Packt.view.MyViewport', {
 			height: 30,
 			style: 'border-top: 1px solid #4c72a4;',
 			html: '<div class="rodape">2015 - 2016 &copy Departamento de Tecnologia da Informação - EMCM/RN</div>' +
-				  '<div class="rodape">Versão 5.0.0</div>'	
+				  '<div class="rodape">Versão 5.1.1</div>'	
 		}
 	]
 });
