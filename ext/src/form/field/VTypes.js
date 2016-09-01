@@ -85,6 +85,7 @@ Ext.define('Ext.form.field.VTypes', (function(){
     // closure these in so they are only created once.
     var alpha = /^[a-zA-Z_]+$/,
         numerico = /[0-9]/,
+        horario = /[0-9:]/,
         alphanum = /^[a-zA-Z0-9_]+$/,
 
         // http://en.wikipedia.org/wiki/Email_address#Local_part
@@ -230,6 +231,13 @@ Ext.define('Ext.form.field.VTypes', (function(){
         },
 
         'numericoText' : 'Este campo deve conter somente números',
-        'numericoMask' : /[0-9]+/
+        'numericoMask' : /[0-9]+/,
+
+        'horario' : function(v) {
+            return horario.test(v);
+        },
+
+        'horarioText': 'Este campo deve conter apenas números separados por ":"',
+        'horarioMask': /[0-9:]+/
     };
 }()));
