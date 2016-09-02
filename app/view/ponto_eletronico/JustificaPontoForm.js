@@ -208,6 +208,8 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 						{
 							xtype: 'textarea',
 							name: 'justificativa',
+							maxLength: 150,
+							msgTarget: 'under',
 							allowBlank: false,
 							rows: 7,
 							fieldStyle: {
