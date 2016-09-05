@@ -219,7 +219,7 @@
 			$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras 
 FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro' GROUP BY usuario ASC, usuarioId;";
 			$textoHorasTrabalhadas = "Servidores e horas totais de ".date('d/m/Y', strtotime($filtro));
-			$sqlJustificativas = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, u.name AS servidor, j.justificativa AS justificativa FROM Pontospordia p, User u, Justificativa j WHERE p.usuarioId = u.id AND p.id = j.idPonto AND p.dataPonto = '$filtro' ORDER BY p.dataPonto DESC";
+			$sqlJustificativas = "SELECT DATE_FORMAT(p.dataPonto, '%d/%m/%Y') AS dataPonto, u.name AS servidor, j.justificativa AS justificativa, j.entrada01 AS je01, j.saida01 AS js01, j.entrada02 AS je02, j.saida02 AS js02, j.dia, p.entrada01 AS pe01, p.saida01 AS ps01, p.entrada02 AS pe02, p.saida02 AS ps02 FROM Pontospordia p, User u, Justificativa j WHERE p.usuarioId = u.id AND p.id = j.idPonto AND p.dataPonto = '$filtro' ORDER BY p.dataPonto DESC";
 		}
 	}	
 
@@ -313,8 +313,15 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 	$pdf->Cell(250, 0, "Justificativas dos servidores", 0, 1, 'C');
 	$pdf->Ln();	
 
-	$itensPorPagina = 2;
+	$itensPorPagina = 2; //NÚMERO DE JUSTIFICATIVAS MOSTRADAS EM UMA PÁGINA
 	foreach($resultJustificativas as $row) {
+		if($itensPorPagina == 0) {
+			$itensPorPagina = 2;
+			$pdf->AddPage();
+		} else {
+			$pdf->Ln();
+			$pdf->Ln(7);
+		}
 		$pdf->SetFont('', 'B');
 		$pdf->SetFillColor(71, 71, 71);
 		$pdf->SetTextColor(255);
@@ -348,7 +355,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 		$pdf->SetTextColor(0);
 		$pdf->Ln();		
 		$horariosTxt = "";
-		if($row['dia'] != 1) {
+		if($row['dia'] != 1) { //A VARIÁVEL dia GUARDA 1 SE O SERVIDOR JUSTIFICOU UM DIA POR COMPLETO E NÃO SÓ ALGUNS HORÁRIOS
 			if(($row['pe01'] != $row['je01']) && ($row['je01'] != null)) {
 				if($row['pe01'] == null) {
 					$horariosTxt = "Entrada no 1º Expediente não registrad e justificada para às ".$row['je01'].".";
@@ -356,6 +363,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 					$horariosTxt = "Entrada no 1º Expediente registrada às ".$row['pe01']." e justificada para às ".$row['je01'].".";
 				}
 				$pdf->Cell(266.9, 6, $horariosTxt, 'LRTB', 0, 'L', 1);
+				$pdf->Ln();
 			}
 			if(($row['ps01'] != $row['js01']) && ($row['js01'] != null)) {
 				if($row['ps01'] == null) {
@@ -363,8 +371,8 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 				} else {
 					$horariosTxt = "Saída no 1º Expediente registrada às ".$row['ps01']." e justificada para às ".$row['js01'].".";
 				}
-				$pdf->Ln();
 				$pdf->Cell(266.9, 6, $horariosTxt, 'LRTB', 0, 'L', 1);
+				$pdf->Ln();
 			}
 			if(($row['pe02'] != $row['je02']) && ($row['je02'] != null)) {
 				if($row['ps01'] == null) {
@@ -372,8 +380,8 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 				} else {
 					$horariosTxt = "Entrada no 2º Expediente registrada às ".$row['pe02']." e justificada para às ".$row['je02'].".";
 				}
-				$pdf->Ln();
 				$pdf->Cell(266.9, 6, $horariosTxt, 'LRTB', 0, 'L', 1);
+				$pdf->Ln();
 			}
 			if(($row['ps02'] != $row['js02']) && ($row['js02'] != null)) {
 				if($row['ps02'] == null) {
@@ -381,15 +389,13 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 				} else {
 					$horariosTxt = "Saída no 2º Expediente registrada às ".$row['ps02']." e justificada para às ".$row['js02'].".";
 				}
-				$pdf->Ln();
 				$pdf->Cell(266.9, 6, $horariosTxt, 'LRTB', 0, 'L', 1);
+				$pdf->Ln();
 			}
 		} else {
 			$pdf->Cell(266.9, 6, "O servidor não compareceu a este dia pelo motivo justificado abaixo.", 'LRTB', 0, 'L', 1);
+			$pdf->Ln();
 		}
-		//$pdf->Cell(267, 7, $horariosTxt, 'LRTB', 0, 'L', 1);
-		//$pdf->MultiCell(0, 20, $horariosTxt, 'LRTB', 0, 'L', 0, $valign='T', $fitcell=true);
-		$pdf->Ln();
 		
 		$pdf->SetFont('', 'B');
 		$pdf->SetFillColor(71, 71, 71);
@@ -402,13 +408,6 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 		$pdf->Ln();
 		$pdf->Cell(266.9, 15, $row['justificativa'], 'LRTB', 0, 'L', 0, $link=0, $stretch=0, $ignore=false, $calign='T', $valign='T');
 		$itensPorPagina = $itensPorPagina - 1;
-		if($itensPorPagina == 0) {
-			$itensPorPagina = 2;
-			$pdf->AddPage();
-		} else {
-			$pdf->Ln();
-			$pdf->Ln(7);
-		}
 		$horariosTxt = "";
 	}
 	$pdf->Output('PontosRegistrados.pdf', 'I');
