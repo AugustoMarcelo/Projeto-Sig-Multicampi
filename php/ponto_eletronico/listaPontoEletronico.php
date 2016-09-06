@@ -13,7 +13,7 @@
 		$filter = json_decode($_GET['filter']);		
 		if($filter[0]->property == "limit") { //SE HOUVER LIMITE, SOMENTE OS 5 ÚLTIMOS PONTOS SERÃO MOSTRADOS NO GRID DE FUNCIONÁRIO
 			$limit = $filter[0]->value;
-			$sql = "SELECT * FROM pontospordia WHERE $idUserLogado = usuarioId  GROUP BY id DESC LIMIT $start, $limit";		
+			$sql = "SELECT * FROM pontospordia WHERE $idUserLogado = usuarioId ORDER BY dataPonto DESC LIMIT $start, $limit";		
 			$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE $idUserLogado = usuarioId LIMIT $start, $limit");
 		
 		} elseif($filter[0]->property == "dataPonto") { //FILTRO PARA MOSTRAR OS PONTOS EM UMA DATA dd/mm/aaaa
@@ -27,7 +27,7 @@
 			}		
 		}
 	} else { //SE NÃO HOUVER FILTROS, TODOS OS PONTOS SERÃO MOSTRADOS (visão para admin)
-		$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";
+		$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.usuarioId = u.id ORDER BY dataPonto DESC LIMIT $start, $limit";
 		$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia");
 	}
 
