@@ -25,7 +25,8 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                 },
                 {              
                     xtype: 'combobox',                                      
-                    name: 'tombo',
+                    name: 'id_patrimonio',
+                    forceSelection: true,
                     itemId: 'comboEmprestimo',
                     fieldLabel: 'Tombo',
                     displayField: 'tombo',
@@ -39,8 +40,8 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                                 '{denominacao} | {tombo}',
                             '</div>',
                         '</tpl>'),
-                    valueField: 'tombo',
-                    queryMode: 'local',
+                    valueField: 'id',
+                    queryMode: 'remote',
                     store: {
                         type: 'patrimonios',
                         filters: [//RETORNAR SOMENTE OS PATRIMÔNIOS QUE PODEM E NÃO ESTÃO EMPRESTADOS.
@@ -50,7 +51,7 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                             },
                             {
                                 property: 'emprestado', //"0" OU "NULL" REPRESENTA UM PATRIMÔNIO QUE NÃO ESTÁ EMPRESTADO
-                                value: 0 || null
+                                value: 0
                             }
                         ]
                     },
@@ -83,7 +84,8 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                 },
                 {
                     fieldLabel: 'Solicitante',
-                    name: 'solicitante'
+                    name: 'solicitante',
+                    allowBlank: false
                 },
                 {
                     xtype: 'datefield',
@@ -91,7 +93,8 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                     name: 'dataemprestimo',                
                     format: 'd/m/Y H:i:s',
                     submitFormat: 'Y-m-d H:i:s',
-                    value: new Date()
+                    value: new Date(),
+                    allowBlank: false
                 }
         	],
             dockedItems: [
@@ -113,7 +116,8 @@ Ext.define('Packt.view.protocolo.FormEmprestimo', {
                             xtype: 'button',
                             text: 'Confirmar',
                             iconCls: 'confirmar',
-                            itemId: 'confirmar'
+                            itemId: 'confirmar',
+                            formBind: true
                         }
                     ]
                 }
