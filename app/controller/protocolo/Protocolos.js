@@ -99,7 +99,7 @@ Ext.define('Packt.controller.protocolo.Protocolos', {
 
 	onButtonClickConfirmarDevolucao: function(button, e, options) {
 		var form = button.up('window').down('form');
-		var store = getProtocolosList().getStore();
+		var store = this.getProtocolosList().getStore();
 		if(form.getForm().isValid()) {
 			form.getForm().submit({
 				clientValidation: true,
