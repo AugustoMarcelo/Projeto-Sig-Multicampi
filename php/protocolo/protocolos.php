@@ -6,7 +6,7 @@
 	$limit = $_REQUEST['limit'];
 	$tombo = null;
 	$mysqli->query('SET CHARACTER SET utf8');
-	$sql = "SELECT * FROM protocolos ORDER BY data DESC LIMIT $start, $limit";
+	$sql = "SELECT p.*, pa.tombo, pa.denominacao, pa.especificacoes FROM protocolos p, patrimonios pa WHERE pa.id = p.id_patrimonio ORDER BY data DESC LIMIT $start, $limit";
 	
 	/* SE O PARÂMETRO 'tombo' ESTIVER COM ALGUM VALOR, 
 	 * RETORNE OS DADOS REFERENTES AO ÚLTIMO EMPRÉSTIMO DESSE PATRIMÔNIO.
@@ -15,7 +15,7 @@
 	*/
 	if(isset($_POST['tombo'])) {
 		$tombo = $_POST['tombo'];
-		$sql = "SELECT descricao, mediador, solicitante, data AS dataEmprestimo FROM protocolos WHERE tombo = '$tombo' AND data = (SELECT MAX(data) FROM protocolos WHERE tombo = '$tombo')";	
+		$sql = "SELECT pa.especificacoes, pa.tombo, pa.denominacao, pa.especificacoes, p.mediador, p.solicitante, p.data AS dataEmprestimo FROM protocolos p, patrimonios pa WHERE tombo = '$tombo' AND data = (SELECT MAX(data) FROM protocolos WHERE tombo = '$tombo') AND p.id_patrimonio = pa.id";	
 	}
 
 	$result = array();
