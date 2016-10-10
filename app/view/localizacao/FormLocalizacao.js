@@ -35,6 +35,7 @@ Ext.define('Packt.view.localizacao.FormLocalizacao', {
                     emptyText: 'Ex.: 202, 198-B',
                     afterLabelTextTpl: Packt.util.Util.required,
                     allowBlank: false,
+                    maxLength: 10,
                     anchor: '-10' //O COMPONENTE TERÁ SUA LARGURA COM 10% A MENOS DO QUE O CONTAINER PAI E ALTURA 90% MENOR
                 },
                 {
@@ -64,7 +65,8 @@ Ext.define('Packt.view.localizacao.FormLocalizacao', {
         {
             text: 'Salvar',
             itemId: 'salvar',
-            iconCls: 'save'
+            iconCls: 'save',
+            formBind: true
         }
     ]
 });
