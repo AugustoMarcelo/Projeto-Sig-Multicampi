@@ -100,16 +100,16 @@ Ext.define('Packt.view.patrimonio.FormPatrimonio', {
 							tpl: Ext.create('Ext.XTemplate',
 								'<tpl for=".">',
 									'<div class="x-boundlist-item">',
-										'{numSala} - {responsavel}',
+										'{numSala} - {nomeDoLocal}',
 									'</div>',
 								'</tpl>'),
 							displayTpl: Ext.create('Ext.XTemplate',
 								'<tpl for=".">',
-									'{numSala} - {responsavel}',
+									'{numSala} - {nomeDoLocal}',
 								'</tpl>'),
 							emptyText: 'Informe a localização do patrimônio',							
 							valueField: 'id', //PEGAR O ID E REFERENCIAR COMO CHAVES ESTRANGEIRA
-							queryMode: 'local',
+							queryMode: 'remote',
 							store: 'localizacao.Localizacoes'
 						},
 						{
@@ -117,13 +117,15 @@ Ext.define('Packt.view.patrimonio.FormPatrimonio', {
 							name: 'situacao',
 							fieldLabel: 'Situação',
 							displayField: 'name',
-							valueField: 'valor',							
+							valueField: 'valor',
+							forceSelection: true,							
 							store: Ext.create('Ext.data.Store', {
 								fields: ['name', 'valor'],
 								data: [
-									{"name":"Em uso", "valor":"uso"},
-									{"name":"Manutenção", "valor":"manutencao"},
-									{"name":"Quebrado", "valor":"quebrado"}
+									{"name":"Em uso", "valor":"EM USO"},
+									{"name":"Manutenção", "valor":"MANUTENÇÃO"},
+									{"name":"Quebrado", "valor":"QUEBRADO"},
+									{"name":"Almoxarifado", "valor": "ALMOXARIFADO"}
 								]
 							})
 						},
