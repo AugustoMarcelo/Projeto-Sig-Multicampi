@@ -80,7 +80,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		textfields[3] = button.up('form').query('textfield#entradaExp2')[0];			//TEXTFIELD REFERENTE A ENTRADA DO 2º EXPEDIENTE
 		textfields[4] = button.up('form').query('textfield#saidaExp2')[0];				//TEXTFIELD REFERENTE A SAIDA DO 2º EXPEDIENTE
 
-		for (var i = 1; textfields.length; i++) {
+		for (var i = 1; i < textfields.length; i++) {
 			if (textfields[i].originalValue != textfields[i].getValue()) {
 				modify = true;
 				break;
