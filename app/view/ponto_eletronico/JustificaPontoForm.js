@@ -42,7 +42,7 @@ Ext.define('Packt.view.ponto_eletronico.JustificaPontoForm', {
 							fieldLabel: 'Data do ponto',
 							name: 'dataPonto',
 							submitFormat: 'Y-m-d',							
-							alowBlank: false,							
+							allowBlank: false,							
 							labelWidth: 110,
 							width: 314,							
 							padding: '0 0 0 10'											
