@@ -6,9 +6,10 @@ Ext.define('Packt.model.protocolo.Protocolo', {
     fields: [
         {name: 'id'},
         {name: 'movimentacao'},
-        {name: 'tombo'},
-        {name: 'denominacao'},
-        {name: 'descricao'},
+        {name: 'id_patrimonio'},
+        {name: 'tombo', persist: false},
+        {name: 'especificacoes', persist: false},
+        {name: 'denominacao', persist: false},
         {name: 'mediador'},
         {name: 'solicitante'},            
         {name: 'data', type: 'date', dateFormat: 'Y-m-d H:i:s'}        
