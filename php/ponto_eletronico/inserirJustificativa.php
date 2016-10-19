@@ -2,7 +2,7 @@
     //IMPORTANDO ARQUIVO DE CONEXÃO COM O BANCO DE DADOS
     require('../db/db.php');
     session_start();
-    date_default_timezone_set("Brazil/East");
+    date_default_timezone_set("America/Araguaina");
 
     //RECUPERANDO OS VALORES DO FORMULÁRIO
     $id = $_POST['id'];

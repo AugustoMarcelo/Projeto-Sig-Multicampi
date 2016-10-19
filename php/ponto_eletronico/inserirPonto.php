@@ -1,7 +1,7 @@
 <?php
 	require("../db/db.php");
 	session_start();
-	date_default_timezone_set("Brazil/East");//SETANDO O FUSO-HORÁRIO
+	date_default_timezone_set("America/Araguaina");//SETANDO O FUSO-HORÁRIO
 
 	function array_search_multi($busca, $arrays) {
 		foreach ($arrays as $array) {
