@@ -10,11 +10,11 @@
     }
 
     if (isset($_SESSION['level']) && $_SESSION['level'] < 3) {        
-        $sql = "SELECT j.*, u.name AS nomeUsuario, u.id AS id_usuario, p.dataPonto FROM Justificativa j, Pontospordia p, User u WHERE j.idPonto = p.id AND p.usuarioId = u.id GROUP BY j.id DESC LIMIT $start, $limit";    
-        $sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM Justificativa LIMIT $start, $limit");        
+        $sql = "SELECT j.*, u.name AS nomeUsuario, u.id AS id_usuario, p.dataPonto FROM Justificativa j, Pontospordia p, User u WHERE j.idPonto = p.id AND p.usuarioId = u.id ORDER BY j.id DESC LIMIT $start, $limit";    
+        $sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM Justificativa");
     } else {
         $sql = "SELECT j.*, u.id AS id_usuario, p.dataPonto FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id AND p.usuarioId = $idUserLogado AND p.id = j.idPonto GROUP BY j.dataJustificativa DESC LIMIT $start, $limit";
-        $sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id AND j.idPonto = p.id AND p.UsuarioId = $idUserLogado LIMIT $start, $limit");
+        $sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM Justificativa j, Pontospordia p, User u WHERE $idUserLogado = u.id AND p.UsuarioId = u.id AND j.idPonto = p.id AND p.usuarioId = $idUserLogado LIMIT $start, $limit");
     }    
 
     $result = array();
@@ -24,17 +24,14 @@
         }
         $resultdb->close();
     }
-
-    if($sqlCount) {
-        $row = $sqlCount->fetch_assoc();
-        $total = $row['num'];
-    }
-
+      
+    $row = $sqlCount->fetch_assoc();
+    $total = $row['num'];
+      
     echo json_encode(array(
         "success" => $mysqli->connect_errno == 0,
         "data" => $result,
-        "total" => isset($total)?$total:""        
+        "total" => $total        
     ));
-
     $mysqli->close();
 ?>
