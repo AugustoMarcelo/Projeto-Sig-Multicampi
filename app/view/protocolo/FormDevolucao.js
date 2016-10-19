@@ -4,7 +4,7 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
     title: 'Devolução',
     modal: true,
     autoShow: true,
-    height: 379,
+    height: 337,
     width: 480,    
     //bodyPadding: 10,            
     items: [
@@ -16,14 +16,20 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
             defaults: {
                 xtype: 'textfield',
                 anchor: '100%',
-                disabled: true,
-                labelWidth: '40%'
+                readOnly: true,
+                labelWidth: '40%',
+                allowBlank: false
             },
             items: [
                 {
                     xtype: 'hiddenfield',
                     fieldLabel: 'id',
                     name: 'id'
+                },
+                {
+                    xtype: 'hiddenfield',
+                    fieldLabel: 'id_patrimonio',
+                    name: 'id_patrimonio'
                 },
                 {
                     xtype: 'combobox',
@@ -39,7 +45,8 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                         '</tpl>'),
                     valueField: 'tombo',
                     queryMode: 'remote',
-                    disabled: false,
+                    readOnly: false,
+                    forceSelection: true,
                     store: {
                         type: 'patrimonios',
                         filters: [{//FILTRO UTILIZADO PARA RETORNAR SOMENTE OS PATRIMÔNIOS QUE ESTÃO EMPRESTADOS
@@ -49,8 +56,10 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                     },
                     listeners: {
                         select: function(combo, records, e0pts) {                                                        
-                            var campoDesc = Ext.ComponentQuery.query('formdevolucao textfield[name=descricao]')[0];
-                            campoDesc.setValue(records[0].data.especificacoes);
+                            var campoDen = Ext.ComponentQuery.query('formdevolucao textfield[name=denominacao]')[0];
+                            campoDen.setValue(records[0].data.denominacao);
+                            var campoIdPatrimonio = Ext.ComponentQuery.query('formdevolucao hiddenfield[name=id_patrimonio]')[0];
+                            campoIdPatrimonio.setValue(records[0].data.id);
                             //Campos que serão preenchidos com os valores retornados do banco
                             var campoMediador = Ext.ComponentQuery.query('formdevolucao textfield[name=mediadorEmprestimo]')[0];
                             var campoSolicitante = Ext.ComponentQuery.query('formdevolucao textfield[name=solicitante]')[0];
@@ -78,22 +87,19 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                             });
                         }
                     }                                        
-                },                            
+                },                  
                 {
-                    xtype: 'textarea',
-                    fieldLabel: 'Descrição',
-                    name: 'descricao',
-                    readOnly: true                                
+                    xtype: 'textfield',
+                    fieldLabel: 'Denominação',
+                    name: 'denominacao'
                 },
                 {
                     fieldLabel: 'Mediador/Empréstimo',
-                    name: 'mediadorEmprestimo',
-                    readOnly: true
+                    name: 'mediadorEmprestimo'
                 },
                 {
                     fieldLabel: 'Solicitante',
-                    name: 'solicitante',
-                    readOnly: true
+                    name: 'solicitante'
                 },
                 {
                     xtype: 'datefield',
@@ -105,8 +111,7 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                     xtype: 'textfield',
                     fieldLabel: 'Mediador/Devolução',
                     name: 'mediadorDevolucao',
-                    readOnly: true,
-                    disabled: false                    
+                    readOnly: true                    
                 },
                 {
                     xtype: 'datefield',
@@ -115,12 +120,13 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                     format: 'd/m/Y H:i:s',
                     submitFormat: 'Y-m-d H:i:s',                  
                     value: new Date(),
-                    disabled: false
+                    readOnly: false
                 },
                 {
                     xtype: 'textarea',
                     fieldLabel: 'Observação',
-                    disabled: false,
+                    readOnly: false,
+                    allowBlank: true,
                     emptyText: 'Informe se o objeto devolvido retornou com algum problema não antes conhecido.'
                 }
             ],
@@ -144,7 +150,8 @@ Ext.define('Packt.view.protocolo.FormDevolucao', {
                             xtype: 'button',
                             text: 'Confirmar',
                             iconCls: 'confirmar',
-                            itemId: 'confirmar'
+                            itemId: 'confirmar',
+                            formBind: true
                         }
                     ]
                 }
