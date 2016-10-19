@@ -11,14 +11,16 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
     columnLines: true,
     initComponent: function() {
         var me = this;
-        var other = Ext.getStore('pontoeletronico');                
-
+        //var other = Ext.getStore('pontoeletronico');                
+        var other = Ext.create('Packt.store.ponto_eletronico.PontoEletronico', {pageSize: 1000});
+        other.load();
         //NÃO RECOMENDADO
         if(Ext.isString(me.store)) {
             me.store = Ext.create('Packt.store.ponto_eletronico.Justificativas');
         }
 
-        if(other == undefined || other == null) {                                    
+        /*if(other == undefined || other == null) {
+            console.log("STORE NÃO CRIADA");                                    
             other = Ext.create('Packt.store.ponto_eletronico.PontoEletronico');
             other.load({
                 params: {
@@ -26,14 +28,17 @@ Ext.define('Packt.view.ponto_eletronico.JustificativasList', {
                     limit: 100000
                 }                
             });                        
+            console.log(other);                                    
         } else {            
+            console.log("STORE CRIADA");
+            console.log(other);                                    
             other.load({
                 params: {
                     start: 0,
                     limit: 100000
                 }
             });            
-        }
+        }*/
         
         Ext.apply(me, {                     
             columns: {
