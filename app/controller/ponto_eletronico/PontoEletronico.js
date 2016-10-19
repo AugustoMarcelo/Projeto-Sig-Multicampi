@@ -81,7 +81,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		textfields[4] = button.up('form').query('textfield#saidaExp2')[0];				//TEXTFIELD REFERENTE A SAIDA DO 2º EXPEDIENTE
 
 		for (var i = 1; i < textfields.length; i++) {
-			if (textfields[i].originalValue != textfields[i].getValue()) {
+			if ((textfields[i].originalValue != textfields[i].getValue()) && textfields[i].getValue() != "") {
 				modify = true;
 				break;
 			}
@@ -99,11 +99,11 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 						if (resultado.success) {
 							if (resultado.novo) {
 								Packt.util.Alert.msg('Ponto eletrônico', 'Ponto Justificado com sucesso.');
-								button.up('window').close();								
+								button.up('window').close();
 							} else {
 								Packt.util.Alert.msg('Ponto eletrônico', 'Justificativa alterada com sucesso.');
 								button.up('window').close();
-							}							
+							}
 						}
 					},
 
@@ -123,7 +123,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 			}
 
 		} else {
-			Packt.util.Alert.msg('Ponto eletrônico', 'Todos os horários estão iguais.');
+			Packt.ux.Alert.show("Ponto eletrônico", "Todos os horários estão iguais.", "error");
 		}
 	},
 
@@ -158,7 +158,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 				if (result.ponto != null) {
 					if (result.justificativa == null) {
 						var fieldset = field.up('form').getComponent('fieldset_horarios');
-						field.up('form').down('hiddenfield#idPonto').setValue(result.ponto.id);												
+						field.up('form').down('hiddenfield#idPonto').setValue(result.ponto.id);
 						fieldset.query('textfield#entradaExp1')[0].setValue(result.ponto.entrada01);
 						fieldset.query('textfield#entradaExp1')[0].originalValue = result.ponto.entrada01;	 //SETANDO O VALOR ORIGINAL NO TEXTFIELD PARA QUE POSSA SER COMPARADO EM CASO DE ALGUMA JUSTIFICATIVA DO USUÁRIO			
 						fieldset.query('textfield#saidaExp1')[0].setValue(result.ponto.saida01);
@@ -198,7 +198,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	onChangeValue: function (thisComponent, newValue, oldValue, eOpts) {
 		var btnClearFilters = thisComponent.up('fieldcontainer').getComponent('btnClearFilters');
 		var fieldset = thisComponent.up('form').getComponent('fieldset_horarios');
-		if(thisComponent.up('form').down('checkbox[name=checkDayFault]').getValue() != true) {
+		if (thisComponent.up('form').down('checkbox[name=checkDayFault]').getValue() != true) {
 			btnClearFilters.setDisabled(thisComponent.getValue() != null ? false : true);
 			fieldset.setDisabled(thisComponent.getValue() != null ? false : true);
 		}
@@ -282,7 +282,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		});
 	},
 
-	onRender: function (component, options) {		
+	onRender: function (component, options) {
 		component.getStore().load();
 	},
 
