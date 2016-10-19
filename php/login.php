@@ -14,7 +14,7 @@
     if ($resultdb = $mysqli->query($sql)) { 
         $count = $resultdb->num_rows; 
         if($count==1){
-
+            
             $_SESSION['authenticated'] = "yes"; 
             $_SESSION['username'] = $userName;
             $_SESSION['user_id'] = $array['id'];
@@ -25,11 +25,11 @@
             $result['success'] = true; 
             $result['msg'] = 'User authenticated!';
 
-            } else {
-                $result['success'] = false; 
-                $result['msg'] = 'Senha incorreta.'; 
-            }
-            $resultdb->close(); 
+        } else {
+            $result['success'] = false; 
+            $result['msg'] = 'Senha incorreta.'; 
+        }
+        $resultdb->close(); 
     }
 
     $mysqli->close(); 
