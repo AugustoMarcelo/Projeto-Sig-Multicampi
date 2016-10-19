@@ -27,7 +27,7 @@
 			}		
 		}
 	} else { //SE NÃO HOUVER FILTROS, TODOS OS PONTOS SERÃO MOSTRADOS (visão para admin)
-		$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.usuarioId = u.id ORDER BY dataPonto DESC LIMIT $start, $limit";
+		$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.usuarioId = u.id ORDER BY dataPonto DESC, entrada01 DESC LIMIT $start, $limit";
 		$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia");
 	}
 
