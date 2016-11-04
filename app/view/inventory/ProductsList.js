@@ -9,10 +9,10 @@ Ext.define('Packt.view.inventory.ProductsList', {
 	store: 'Products',
 	columnLines: true,
 
-	initComponent: function() {
+	initComponent: function () {
 		var me = this;
 
-		if(Ext.isString(me.store)) {
+		if (Ext.isString(me.store)) {
 			me.store = Ext.create('Packt.store.inventory.Products');
 		}
 
@@ -21,7 +21,7 @@ Ext.define('Packt.view.inventory.ProductsList', {
 				{
 					width: '10%',
 					dataIndex: 'codigo',
-					text: 'Código'			
+					text: 'Código'
 				},
 				{
 					width: '20%',
@@ -58,20 +58,20 @@ Ext.define('Packt.view.inventory.ProductsList', {
 					dataIndex: 'Sigla_id',
 					text: 'Unidade de Medida',
 					align: 'center',
-					renderer: function(value, metaData, record ){ 
-						var siglasStore = Ext.getStore('unidadesmedida');			
-						var sigla = siglasStore.findRecord('id', value);						
+					renderer: function (value, metaData, record) {
+						var siglasStore = Ext.getStore('unidadesmedida');
+						var sigla = siglasStore.findRecord('id', value);
 						return sigla != null ? sigla.get('name') : value;
 					}
 				},
 				{
 					width: '7%',
 					dataIndex: 'tipoMaterial',
-					text: 'Material',					
+					text: 'Material',
 					align: 'center',
-					renderer: function(value, metaData, record) {
-						var materiaisStore = Ext.getStore('materiais');												
-						var material = materiaisStore.findRecord('id', value);					
+					renderer: function (value, metaData, record) {
+						var materiaisStore = Ext.getStore('materiais');
+						var material = materiaisStore.findRecord('id', value);
 						return material != null ? material.get('name') : value;
 						/*if(Ext.getStore('materiais') != null) {						
 							var materiaisStore = Ext.getStore('materiais');
@@ -85,9 +85,9 @@ Ext.define('Packt.view.inventory.ProductsList', {
 			],
 			forceFit: true,
 			viewConfig: {
-				stripeRows: true,				
-				getRowClass: function(record, index, rowParams, store) {
-					if(record.get('quantidade') <= record.get('quantidadeMin')) {
+				stripeRows: true,
+				getRowClass: function (record, index, rowParams, store) {
+					if (record.get('quantidade') <= record.get('quantidadeMin')) {
 						return "vermelho";
 
 					} else {
@@ -101,7 +101,7 @@ Ext.define('Packt.view.inventory.ProductsList', {
 					dock: 'top',
 					xtype: 'toolbar',
 					items: [
-						{							
+						{
 							fieldLabel: 'Pesquisar pelo nome',
 							itemId: 'searchfield-filtro',
 							labelWidth: 110,
@@ -120,7 +120,7 @@ Ext.define('Packt.view.inventory.ProductsList', {
 							xtype: 'combo',
 							itemId: 'combo-material',
 							fieldLabel: 'Tipo de material',
-							labelWidth: 90,							
+							labelWidth: 90,
 							store: {
 								//type:'inventory.Materiais',
 								type: 'materiais',
@@ -130,11 +130,11 @@ Ext.define('Packt.view.inventory.ProductsList', {
 							valueField: 'id',
 							query: 'local',
 							listeners: {
-								select: function(obj) {
+								select: function (obj) {
 									var objParam = obj.getValue();
-									if(obj.getValue() == null) {
+									if (obj.getValue() == null || obj.getValue() == 0) {
 										objParam = obj.getDisplayValue();
-									}									
+									}
 									var grid = obj.up('grid');
 									var liststore = grid.store;
 									var searchField = Ext.ComponentQuery.query('#searchfield-filtro')[0];
@@ -143,8 +143,8 @@ Ext.define('Packt.view.inventory.ProductsList', {
 										action: 'filtrar_material',
 										operacao: objParam,
 										searchValue: searchField.getValue()
-									},														
-									liststore.load();
+									},
+										liststore.load();
 								}
 							}
 						}
@@ -167,18 +167,18 @@ Ext.define('Packt.view.inventory.ProductsList', {
 				}
 			]
 		});
-		
+
 		me.callParent(arguments);
 		me.store.load();
 	},
 
-	onSearchFieldTrigger2Click: function() {
+	onSearchFieldTrigger2Click: function () {
 		var searchField = this,
 			value = searchField.getValue(),
 			store = searchField.store;
 
-		var valorCombo = Ext.ComponentQuery.query('#combo-material')[0];		
-		if(value.length >= 0) {
+		var valorCombo = Ext.ComponentQuery.query('#combo-material')[0];
+		if (value.length >= 0) {
 			//Passando os valores a serem resgatados no SERVER 
 			//param1 : Valor a ser recuperado no backend
 			//param2 : Valor selecionado no combo
