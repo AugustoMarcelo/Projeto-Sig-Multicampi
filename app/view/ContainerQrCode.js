@@ -8,6 +8,7 @@ Ext.define('Packt.view.ContainerQrCode', {
     closable: false,
     height: 400,
     width: 300,
+    defaultFocus: 'textfield',
     layout: {
         type: 'border',
         padding: '10'
