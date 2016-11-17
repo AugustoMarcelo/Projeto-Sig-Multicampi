@@ -358,7 +358,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 		if($row['dia'] != 1) { //A VARIÁVEL dia GUARDA 1 SE O SERVIDOR JUSTIFICOU UM DIA POR COMPLETO E NÃO SÓ ALGUNS HORÁRIOS
 			if(($row['pe01'] != $row['je01']) && ($row['je01'] != null)) {
 				if($row['pe01'] == null) {
-					$horariosTxt = "Entrada no 1º Expediente não registrad e justificada para às ".$row['je01'].".";
+					$horariosTxt = "Entrada no 1º Expediente não registrada e justificada para às ".$row['je01'].".";
 				} else {
 					$horariosTxt = "Entrada no 1º Expediente registrada às ".$row['pe01']." e justificada para às ".$row['je01'].".";
 				}
