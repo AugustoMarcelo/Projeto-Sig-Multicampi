@@ -20,6 +20,10 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		{
 			ref: 'pontoEletronicoUsuario',
 			selector: 'pontoeletronicousuario'
+		},
+		{
+			ref: 'justificativasList',
+			selector: 'justificativaslist'
 		}
 	],
 
@@ -71,6 +75,7 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 	},
 
 	onJustificarPonto: function (button, e, options) {
+		var me = this;																	//SERÁ USADA PARA PEGAR A REFERÊNCIA DO GRID DAS JUSTIFICATIVAS A SER ATUALIZADO
 		var modify = false;																//VARIÁVEL UTILIZADA PARA VERIFICAR SE HOUVE MUDANÇAS NOS HORÁRIOS DOS PONTOS
 		var textfields = [];															//VETOR DE TEXTFIELDS
 		var form = button.up('form');													//REFERÊNCIA DO FORMULÁRIO
@@ -80,10 +85,16 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 		textfields[3] = button.up('form').query('textfield#entradaExp2')[0];			//TEXTFIELD REFERENTE A ENTRADA DO 2º EXPEDIENTE
 		textfields[4] = button.up('form').query('textfield#saidaExp2')[0];				//TEXTFIELD REFERENTE A SAIDA DO 2º EXPEDIENTE
 
-		for (var i = 1; i < textfields.length; i++) {
-			if ((textfields[i].originalValue != textfields[i].getValue()) && textfields[i].getValue() != "") {
-				modify = true;
-				break;
+		var checkbox = button.up('form').query('checkbox[name=checkDayFault]')[0];
+		if (checkbox.getValue() == true) {
+			modify = true;
+		}
+		if (!modify) {
+			for (var i = 1; i < textfields.length; i++) {
+				if ((textfields[i].originalValue != textfields[i].getValue()) && textfields[i].getValue() != "") {
+					modify = true;
+					break;
+				}
 			}
 		}
 
@@ -103,6 +114,8 @@ Ext.define('Packt.controller.ponto_eletronico.PontoEletronico', {
 							} else {
 								Packt.util.Alert.msg('Ponto eletrônico', 'Justificativa alterada com sucesso.');
 								button.up('window').close();
+								var store = me.getJustificativasList().getStore();
+								store.load();
 							}
 						}
 					},
