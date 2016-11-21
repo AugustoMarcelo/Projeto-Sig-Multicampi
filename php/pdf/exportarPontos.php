@@ -190,7 +190,7 @@
 					u.name AS usuarioId, 
 					p.usuarioId AS id, 
 					IF(p.id IN(SELECT idPonto FROM Justificativa), 'SIM', '—') AS justificado";
-	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id GROUP BY usuarioId, p.id DESC";
+	$sqlCompleta = $sqlParte1 . " FROM pontospordia p, user u WHERE p.usuarioId = u.id ORDER BY usuarioId, p.id DESC";
 	$sqlHorasTrabalhadas = "SELECT u.name AS usuario, (SELECT TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(totaldia))), '%H:%i:%s')) AS totalhoras FROM pontospordia p, User u WHERE p.usuarioId = u.id GROUP BY usuario ASC, usuarioId;";
 	$textoHorasTrabalhadas = "Servidores e horas totais de trabalho desde o início";
 	$sqlJustificativas = "SELECT 
@@ -358,7 +358,7 @@ FROM pontospordia p, User u WHERE p.usuarioId = u.id AND p.dataPonto = '$filtro'
 		if($row['dia'] != 1) { //A VARIÁVEL dia GUARDA 1 SE O SERVIDOR JUSTIFICOU UM DIA POR COMPLETO E NÃO SÓ ALGUNS HORÁRIOS
 			if(($row['pe01'] != $row['je01']) && ($row['je01'] != null)) {
 				if($row['pe01'] == null) {
-					$horariosTxt = "Entrada no 1º Expediente não registrad e justificada para às ".$row['je01'].".";
+					$horariosTxt = "Entrada no 1º Expediente não registrada e justificada para às ".$row['je01'].".";
 				} else {
 					$horariosTxt = "Entrada no 1º Expediente registrada às ".$row['pe01']." e justificada para às ".$row['je01'].".";
 				}

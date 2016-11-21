@@ -14,7 +14,7 @@ Ext.define('Packt.util.Util', {
 	 	},
 	 	showErrorMsg: function (text) { 
 	 		Ext.Msg.show({
-	 			title:'Error!',
+	 			title:'Erro!',
 	 			msg: text,
 	 			icon: Ext.Msg.ERROR,
 	 			buttons: Ext.Msg.OK

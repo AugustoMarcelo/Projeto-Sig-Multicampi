@@ -6,7 +6,7 @@
 	$start = $_REQUEST['start'];
 	$limit = $_REQUEST['limit'];
 
-	$sql = "SELECT * FROM Log GROUP BY dateOperation DESC LIMIT $start, $limit";
+	$sql = "SELECT * FROM Log ORDER BY dateOperation DESC LIMIT $start, $limit";
 	$sqlTotal = "SELECT COUNT(*) AS num FROM Log";
 
 	$result = array();

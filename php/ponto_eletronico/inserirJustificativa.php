@@ -33,7 +33,7 @@
         }
         $mysqli->query($sql);
     } else {
-        $sql = "UPDATE Justificativa SET entrada01 = IF('$entrada01' = '', null, '$entrada01'), saida01 = IF('$saida01' = '', null, '$saida01'), entrada02 = IF('$entrada02' = '', null, '$entrada02'), saida02 = IF('$saida02' = '', null, '$saida02'), justificativa = '$justificativa' WHERE id = '$id';";
+        $sql = "UPDATE Justificativa SET entrada01 = IF('$entrada01' = '', null, '$entrada01'), saida01 = IF('$saida01' = '', null, '$saida01'), entrada02 = IF('$entrada02' = '', null, '$entrada02'), saida02 = IF('$saida02' = '', null, '$saida02'), justificativa = '$justificativa', dia = 0 WHERE id = '$id';";
         $mysqli->query($sql);
         $novo = false;
     }

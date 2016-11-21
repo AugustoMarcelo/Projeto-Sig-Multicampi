@@ -8,7 +8,7 @@
 	if(isset($_GET['group'])) { //SE A VARIÁVEL 'group' TIVER ALGUM VALOR, OU SEJA, FOR TRUE, RECEBA O VALOR
 		$groupId = $_GET['group'];
 	}
-	$sql = "SELECT * FROM User GROUP BY name ASC LIMIT $start, $limit";
+	$sql = "SELECT * FROM User ORDER BY name ASC LIMIT $start, $limit";
 	$sqlTotal = $mysqli->query("SELECT COUNT(*) AS num FROM User");
 	if ($groupId != null) {
 		$sql = "SELECT * FROM User WHERE group_id = $groupId LIMIT $start, $limit";

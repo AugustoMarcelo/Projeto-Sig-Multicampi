@@ -18,11 +18,11 @@
 		
 		} elseif($filter[0]->property == "dataPonto") { //FILTRO PARA MOSTRAR OS PONTOS EM UMA DATA dd/mm/aaaa
 			$dataPonto = $filter[0]->value;
-			$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.dataPonto = '$dataPonto' AND p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";		
+			$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE p.dataPonto = '$dataPonto' AND p.usuarioId = u.id ORDER BY id DESC LIMIT $start, $limit";		
 			$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE dataPonto = '$dataPonto'");
 			
 			if(isset($filter[1]) && $filter[1]->property == "checkDateFormat" && $filter[1]->value == true) { //SE O CHECKBOX DO GRID ESTIVER MARCADO, A PESQUISA LEVARÁ EM CONSIDERAÇÃO SOMENTE MÊS E ANO
-				$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE DATE_FORMAT(p.dataPonto, '%Y-%m') = '$dataPonto' AND p.usuarioId = u.id GROUP BY id DESC LIMIT $start, $limit";		
+				$sql = "SELECT p.*, u.name AS nomeUsuario FROM pontospordia p, user u WHERE DATE_FORMAT(p.dataPonto, '%Y-%m') = '$dataPonto' AND p.usuarioId = u.id ORDER BY id DESC LIMIT $start, $limit";		
 				$sqlCount = $mysqli->query("SELECT COUNT(*) AS num FROM pontosPorDia WHERE DATE_FORMAT(dataPonto, '%Y-%m') = '$dataPonto' LIMIT $start, $limit");
 			}		
 		}

@@ -5,14 +5,14 @@
 
 	$start = $_REQUEST['start'];
 	$limit = $_REQUEST['limit'];
-	$sql = "SELECT * FROM estoque GROUP BY dataOperacao DESC LIMIT $start, $limit";
+	$sql = "SELECT * FROM estoque ORDER BY dataOperacao DESC LIMIT $start, $limit";
 	$sqlTotal = "SELECT COUNT(*) AS num FROM estoque";
 
 	if(isset($_REQUEST['action']) AND $_REQUEST['action'] == 'filtrar_log') {
 		$operacao = $_REQUEST['operacao'];
 
 		if($operacao !== 'Todos') {			
-			$sql = "SELECT * FROM estoque WHERE operacao = '$operacao' GROUP BY dataOperacao DESC LIMIT $start, $limit";
+			$sql = "SELECT * FROM estoque WHERE operacao = '$operacao' ORDER BY dataOperacao DESC LIMIT $start, $limit";
 			$sqlTotal = "SELECT count(*) AS num FROM estoque WHERE operacao = '$operacao'";
 		}
 	}
