@@ -12,8 +12,7 @@ Ext.define('Packt.controller.Login', {
 		'Login',
 		'authentication.CapsLockTooltip',
 		'Header',
-		'security.ChangePasswordView',
-		'ContainerQrCode'
+		'security.ChangePasswordView'
 	],
 
 	refs: [
@@ -48,71 +47,9 @@ Ext.define('Packt.controller.Login', {
 			},
 			"changepasswordview button#cancel": {
 				click: this.cancelar
-			},
-			"containerqrcode button#confirmCode": {
-				click: this.onCheckTotp
-			},
-			"containerqrcode textfield#textfieldcode": {
-				change: this.onChange,
-				keypress: this.onCheckTotpKeypress
 			}
 
 		});
-	},
-
-	onCheckTotpKeypress: function (textfield, e, options) {
-		if (e.getKey() == e.ENTER) {
-
-			var button = textfield.up('window').down('button');
-			button.fireEvent('click', button, e, options);
-		}
-	},
-
-	onChange: function (self, newValue, oldValue, eOpts) {
-		if (self.isValid()) {
-			self.up('window').down('button').setDisabled(false);
-		} else {
-			self.up('window').down('button').setDisabled(true);
-		}
-	},
-
-	onCheckTotp: function (button, e, options) {
-		var windowQrCode = button.up('window');
-		var image = windowQrCode.down('image');
-		var textfieldCode = windowQrCode.down('textfield#textfieldcode');
-		if (textfieldCode.isValid()) {
-			Ext.Ajax.request({
-				url: 'php/login.php',
-				params: {
-					key: textfieldCode.getValue(),
-					qrcode: image.src != "" ? image.src : ""
-				},
-
-				failure: function (conn, response, options, eOpts) {
-					console.log("Falha na conexão com o banco");
-				},
-
-				success: function (conn, response, options, eOpts) {
-					var result = Packt.util.Util.decodeJSON(conn.responseText);
-
-					if (result.success) {
-						windowQrCode.close();
-						Ext.create('Packt.view.MyViewport');
-						Packt.util.SessionMonitor.start();
-						Ext.Ajax.request({
-							method: 'POST',
-							url: 'php/security/importUserSession.php',
-							success: function (conn, response, options, e0pts) {
-								var usuario = Packt.util.Util.decodeJSON(conn.responseText);
-								Packt.util.Alert.msg(translations.msgWelcome, usuario.nome);
-							}
-						});
-					} else {
-						Packt.ux.Alert.show('Erro', result.msg, 'error');
-					}
-				}
-			});
-		}
 	},
 
 	onButtonClickSubmit: function (button, e, options) {
@@ -139,21 +76,8 @@ Ext.define('Packt.controller.Login', {
 				success: function (conn, response, options, eOpts) {
 					Ext.get(login.getEl()).unmask();
 					var result = Packt.util.Util.decodeJSON(conn.responseText);
+
 					if (result.success) {
-						login.close();
-						var containerQrCode = Ext.create('Packt.view.ContainerQrCode');
-						if (!!result.qrcode) {
-							containerQrCode.down('image').setSrc(result.qrcode);
-						}
-					} else {
-						if (result.codigo == 1) {
-							Packt.util.Util.showErrorMsg('Este computador não está autorizado a fazer login.');
-						} else {
-							Packt.util.Util.showErrorMsg(result.msg);
-							formPanel.down('textfield[name=password]').focus();
-						}
-					}
-					/*if (result.success) {
 						login.close();
 						Ext.create('Packt.view.MyViewport');
 						Packt.util.SessionMonitor.start();
@@ -167,14 +91,12 @@ Ext.define('Packt.controller.Login', {
 						});
 
 
-					} else {*/
-
-
-					//Packt.ux.Alert.show('Operação inválida', result.msg, 'error')
-					//Packt.util.Alert.msg("Operação inválida", result.msg);
-					//Packt.util.Util.showErrorMsg("Para que você possa acessar, certifique-se de que não há outras sessões abertas neste computador.");
+					} else {
+						//Packt.ux.Alert.show('Operação inválida', result.msg, 'error')
+						Packt.util.Alert.msg("Operação inválida", result.msg);
+						//Packt.util.Util.showErrorMsg("Para que você possa acessar, certifique-se de que não há outras sessões abertas neste computador.");
+					}
 				}
-				//}
 			});
 		}
 	},
