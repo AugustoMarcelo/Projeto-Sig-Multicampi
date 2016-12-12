@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fac884a1-1239-4732-9a73-3e772dd83cd8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/Login.js" afterPath="$PROJECT_DIR$/app/controller/Login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/util/Util.js" afterPath="$PROJECT_DIR$/app/util/Util.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/css/app.css" afterPath="$PROJECT_DIR$/resources/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/login.php" afterPath="$PROJECT_DIR$/php/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Projeto-Sig-Multicampi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,14 +28,8 @@
         <entry file="file://$PROJECT_DIR$/php/login.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="87" selection-start-line="76" selection-start-column="87" selection-end-line="76" selection-end-column="87" />
-              <folding>
-                <element signature="e#10#38#0#PHP" expanded="true" />
-                <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-                <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-                <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-                <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-              </folding>
+              <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -47,15 +37,9 @@
       <file leaf-file-name="Login.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controller/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14046822">
-              <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
-              <folding>
-                <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-                <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-                <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-                <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-                <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-              </folding>
+            <state vertical-scroll-proportion="-1.215359">
+              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/app/view/ContainerQrCode.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -216,6 +200,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches">
+        <subPane />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -332,10 +320,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches">
-        <subPane />
-      </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -390,7 +374,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27231467" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27609682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -426,17 +410,37 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/view/ContainerQrCode.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/Login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="26" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/view/ponto_eletronico/PontoEletronicoUsuario.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1472735660685" expanded="true" signature="2579:2647" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/php/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="76" column="87" selection-start-line="76" selection-start-column="87" selection-end-line="76" selection-end-column="87" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -444,13 +448,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -484,13 +482,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="81" selection-start-line="49" selection-start-column="81" selection-end-line="49" selection-end-column="81" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -498,13 +490,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -538,13 +524,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="81" selection-start-line="49" selection-start-column="81" selection-end-line="49" selection-end-column="81" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -552,13 +532,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -592,13 +566,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -606,13 +574,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="69" column="60" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -646,13 +608,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -660,13 +616,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="69" column="60" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -700,13 +650,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -721,13 +665,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -742,13 +680,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="6" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -864,36 +796,24 @@
     <entry file="file://$PROJECT_DIR$/php/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="87" selection-start-line="76" selection-start-column="87" selection-end-line="76" selection-end-column="87" />
-          <folding>
-            <element signature="e#10#38#0#PHP" expanded="true" />
-            <marker date="1477394529242" expanded="true" signature="507:527" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:543" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="507:565" placeholder="UPDATE user ..." />
-            <marker date="1477394529242" expanded="true" signature="1407:1473" placeholder="SELECT * FRO..USER..." />
-          </folding>
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/view/ContainerQrCode.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14046822">
-          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
-          <folding>
-            <marker date="1477396697620" expanded="true" signature="4763:4768" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4781" placeholder="{&quot;url&quot;: 'php/login.php'...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4787" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:4790" placeholder="{...}" />
-            <marker date="1477396697620" expanded="true" signature="4763:7603" placeholder="{...}" />
-          </folding>
+        <state vertical-scroll-proportion="-1.215359">
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
