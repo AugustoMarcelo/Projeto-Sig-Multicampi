@@ -92,8 +92,8 @@ Ext.define('Packt.controller.Login', {
 
 
 					} else {
-						//Packt.ux.Alert.show('Operação inválida', result.msg, 'error')
-						Packt.util.Alert.msg("Operação inválida", result.msg);
+						Packt.ux.Alert.show('Operação inválida', result.msg, 'error');
+						//Packt.util.Alert.msg("Operação inválida", result.msg);
 						//Packt.util.Util.showErrorMsg("Para que você possa acessar, certifique-se de que não há outras sessões abertas neste computador.");
 					}
 				}
