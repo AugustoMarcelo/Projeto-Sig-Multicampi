@@ -4,13 +4,13 @@ Ext.define('Packt.view.security.UsersList', {
 	//frame: true,
 	//store: 'Packt.store.security.Users', 
 	allowDeselect: true,
-	store: 'users',	
+	store: 'users',
 	columnLines: true,
 
-	initComponent: function() {
+	initComponent: function () {
 		var me = this;
 
-		if(Ext.isString(me.store)) {
+		if (Ext.isString(me.store)) {
 			me.store = Ext.create('Packt.store.security.Users');
 		}
 
@@ -36,7 +36,7 @@ Ext.define('Packt.view.security.UsersList', {
 					width: '15%',
 					dataIndex: 'Group_id',
 					text: translations.groupColGrid,
-					renderer: function(value, metaData, record ){ 
+					renderer: function (value, metaData, record) {
 						var groupsStore = Ext.getStore('groups');
 						var group = groupsStore.findRecord('id', value);
 						return group != null ? group.get('name') : value;
@@ -57,9 +57,9 @@ Ext.define('Packt.view.security.UsersList', {
 			],
 			forceFit: true,
 			viewConfig: {
-				stripeRows: true,				
-				getRowClass: function(record, index, rowParams, store) {
-					if(record.get('status') == 'INATIVO') {
+				stripeRows: true,
+				getRowClass: function (record, index, rowParams, store) {
+					if (record.get('status') == 'INATIVO') {
 						return "inativo";
 
 					} else {
@@ -73,7 +73,7 @@ Ext.define('Packt.view.security.UsersList', {
 					store: me.store,
 					dock: 'bottom',
 					displayInfo: true,
-					emptyMsg: 'Não há pontos registrados',
+					emptyMsg: 'Não há usuários registrados',
 					displayMsg: 'Exibindo {0} - {1} de {2} registro(s)'
 				}
 			]
