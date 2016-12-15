@@ -4,7 +4,7 @@ Ext.define('Packt.view.Login', {
 
     requires: [
         'Packt.view.Translation'
-    ],    
+    ],
     autoShow: true,
     height: 170,
     width: 360,
@@ -27,7 +27,6 @@ Ext.define('Packt.view.Login', {
                 anchor: '100%',
                 labelWidth: 60,
                 allowBlank: false,
-                vtype: 'alphanum',
                 minLength: 3,
                 msgTarget: 'under'
             },
@@ -36,7 +35,8 @@ Ext.define('Packt.view.Login', {
                     name: 'user',
                     fieldLabel: translations.usuario,
                     maxLength: 25,
-                    cls: 'nomeUsuario'
+                    cls: 'nomeUsuario',
+                    vtype: 'alphanum'
                 },
                 {
                     inputType: 'password',
