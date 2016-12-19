@@ -45,6 +45,18 @@ Ext.define('Packt.view.Login', {
                     maxLength: 25,
                     enableKeyEvents: true,
                     id: 'password'
+                },
+                {
+                    xtype: 'component',
+                    autoEl: {
+                        tag: 'a',
+                        href: 'https://emcm.ufrn.br/sistema/tutorial.pdf',
+                        html: 'Ajuda?',
+                        target: '_blank',
+                    },
+                    style: {
+                        textDecoration: 'none',
+                    }
                 }
             ],
             dockedItems: [
