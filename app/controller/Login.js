@@ -141,9 +141,22 @@ Ext.define('Packt.controller.Login', {
 					var result = Packt.util.Util.decodeJSON(conn.responseText);
 					if (result.success) {
 						login.close();
-						var containerQrCode = Ext.create('Packt.view.ContainerQrCode');
-						if (!!result.qrcode) {
-							containerQrCode.down('image').setSrc(result.qrcode);
+						if (!!result.group & result.group == 1) {
+							Ext.create('Packt.view.MyViewport');
+							Packt.util.SessionMonitor.start();
+							Ext.Ajax.request({
+								method: 'POST',
+								url: 'php/security/importUserSession.php',
+								success: function (conn, response, options, e0pts) {
+									var usuario = Packt.util.Util.decodeJSON(conn.responseText);
+									Packt.util.Alert.msg(translations.msgWelcome, usuario.nome);
+								}
+							});
+						} else {
+							var containerQrCode = Ext.create('Packt.view.ContainerQrCode');
+							if (!!result.qrcode) {
+								containerQrCode.down('image').setSrc(result.qrcode);
+							}
 						}
 					} else {
 						if (result.codigo == 1) {
