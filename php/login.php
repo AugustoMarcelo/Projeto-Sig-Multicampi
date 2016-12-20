@@ -40,7 +40,7 @@
             if ($resultdb = $mysqli->query($sql)) {
                 $count = $resultdb->num_rows;
                 if ($count == 1) {
-                    if (!$array['totp_key']) {
+                    if (!$array['totp_key'] && $array['Group_id'] != 1) {
                         $secret = GoogleAuthenticator::generateRandom();
                         $_SESSION['secret'] = $secret;
                         $_SESSION['authenticated'] = "yes";
@@ -61,7 +61,10 @@
                         $_SESSION['registration'] = $array['registration'];
                         $_SESSION['level'] = $array['level'];
                         $_SESSION['grupo_id'] = $array['Group_id'];
-                        $_SESSION['secret'] = $array['totp_key'];
+                        if($array['Group_id'] != 1) {
+                            $_SESSION['secret'] = $array['totp_key'];
+                        }
+                        $result['group'] = $array['Group_id'];
                         $result['success'] = true;
                     }
                 } else {
